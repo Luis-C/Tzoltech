@@ -99,10 +99,15 @@ class RingDrawable extends WatchUi.Drawable {
 		var firstHue = Utils.extractRGB(Graphics.COLOR_RED);
 		var finalHue = Utils.extractRGB(Graphics.COLOR_YELLOW);
 
+		var isHighPowerMode =
+			System has :getDisplayMode
+				? System.getDisplayMode() == System.DISPLAY_MODE_HIGH_POWER
+				: false;
+
 		Utils.drawGradientCircle(
 			dc,
 			centerX,
-			160, // start
+			176, // start
 			224,
 			255, //alpha
 			firstHue[Utils.CHANNEL_R] as Number,
@@ -113,16 +118,27 @@ class RingDrawable extends WatchUi.Drawable {
 			finalHue[Utils.CHANNEL_B] as Number
 		);
 
-		dc.setPenWidth(25);
-		dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
-		dc.drawArc(centerX, centerY, 210, Graphics.ARC_COUNTER_CLOCKWISE, 0, angleHours);
+		var color = Graphics.COLOR_LT_GRAY;
+		if (!isHighPowerMode) {
+			color = Graphics.COLOR_DK_GRAY;
+		}
 
-		dc.setPenWidth(22);
-		dc.drawArc(centerX, centerY, 190, Graphics.ARC_COUNTER_CLOCKWISE, 0, angleMinutes);
+		// HOURS
+		dc.setPenWidth(20);
+		dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+		dc.drawArc(centerX, centerY, 217, Graphics.ARC_COUNTER_CLOCKWISE, 0, angleHours);
 
-		if (System.getDisplayMode() == System.DISPLAY_MODE_HIGH_POWER) {
-			dc.setPenWidth(20);
-			dc.drawArc(centerX, centerY, 167, Graphics.ARC_COUNTER_CLOCKWISE, 0, angleSeconds);
+		// min
+		dc.setPenWidth(20);
+		dc.drawArc(centerX, centerY, 202, Graphics.ARC_COUNTER_CLOCKWISE, 0, angleMinutes);
+
+		// seconds
+		if (isHighPowerMode) {
+			dc.setPenWidth(17);
+			dc.drawArc(centerX, centerY, 184, Graphics.ARC_COUNTER_CLOCKWISE, 0, angleSeconds);
+		} else {
+			dc.setPenWidth(17);
+			dc.drawArc(centerX, centerY, 184, Graphics.ARC_COUNTER_CLOCKWISE, 0, 360);
 		}
 
 		// debug
@@ -132,7 +148,7 @@ class RingDrawable extends WatchUi.Drawable {
 
 		// hides extra
 		dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-		dc.fillCircle(centerX, centerY, 158);
+		dc.fillCircle(centerX, centerY, 159);
 
 		var outerRingPNG = getFlowerSVG(0);
 		var bitmap = outerRingPNG as BitmapResource;

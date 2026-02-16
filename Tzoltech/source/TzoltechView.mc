@@ -16,8 +16,8 @@ class TzoltechView extends WatchUi.WatchFace {
 		{}
 	);
 	// LAYOUT
-	private var _padding as Number = 22;
-	private var _vectorFontSize as Number = 30;
+	private var _padding as Number = 24;
+	private var _vectorFontSize as Number = 32;
 
 	private const _DEFAULT_TOP_COMPLICATION = Complications.COMPLICATION_TYPE_DATE;
 	private const _DEFAULT_CENTER_COMPLICATION = Complications.COMPLICATION_TYPE_TRAINING_STATUS;
