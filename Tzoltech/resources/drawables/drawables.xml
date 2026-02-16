@@ -1,0 +1,9 @@
+<drawables xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <bitmap id="LauncherIcon" filename="launcher_icon.svg" dithering="none" />
+    <bitmap id="OuterRing" x="center" y="0" filename="../rings/TZOLTECH-Ring1.png" scaleX="454" scaleY="454" packingFormat="png">
+    </bitmap>
+    <bitmap id="MiddleRing" x="center" y="0" filename="../rings/TZOLTECH-Ring2.png" scaleX="454" scaleY="454" packingFormat="png">
+    </bitmap>
+    <bitmap id="InnerRing" x="center" y="0" filename="../rings/TZOLTECH-Ring3.png" scaleX="454" scaleY="454" packingFormat="png">
+    </bitmap>
+</drawables>
