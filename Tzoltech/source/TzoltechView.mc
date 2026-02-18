@@ -6,6 +6,8 @@ import Toybox.Complications;
 import Toybox.Application;
 
 class TzoltechView extends WatchUi.WatchFace {
+	private var _settingsChanged as Boolean = false;
+
 	private var _timeDrawable as TimeDrawable = new TimeDrawable({});
 	private var _complicationCenter as HorizontalTextDrawable = new HorizontalTextDrawable({});
 	private var _complicationTop as HorizontalTextDrawable = new HorizontalTextDrawable({});
@@ -15,21 +17,29 @@ class TzoltechView extends WatchUi.WatchFace {
 		Graphics.COLOR_YELLOW,
 		{}
 	);
+	private var _ringsDrawable as RingDrawable = new RingDrawable(
+		Graphics.COLOR_RED,
+		Graphics.COLOR_YELLOW,
+		{}
+	);
+
 	// LAYOUT
-	private var _padding as Number = 24;
-	private var _vectorFontSize as Number = 32;
+	private var _padding as Number = 16;
+	private var _vectorFontSize as Number = 34;
 
 	private const _DEFAULT_TOP_COMPLICATION = Complications.COMPLICATION_TYPE_DATE;
 	private const _DEFAULT_CENTER_COMPLICATION = Complications.COMPLICATION_TYPE_TRAINING_STATUS;
 	private const _DEFAULT_BOTTOM_COMPLICATION = Complications.COMPLICATION_TYPE_ALTITUDE;
-	private const _DEFAULT_RIGHT_COMPLICATION = Complications.COMPLICATION_TYPE_BATTERY;
-	private const _DEFAULT_LEFT_COMPLICATION = Complications.COMPLICATION_TYPE_BODY_BATTERY;
+	private const _DEFAULT_RING_3 = Complications.COMPLICATION_TYPE_BATTERY;
+	private const _DEFAULT_RING_2 = Complications.COMPLICATION_TYPE_BODY_BATTERY;
+	private const _DEFAULT_RING_1 = Complications.COMPLICATION_TYPE_RECOVERY_TIME;
 	private var _complicationAssignments as Dictionary<String, Complications.Id> = {
 		ComplicationLocation.LOC_TOP => new Complications.Id(_DEFAULT_TOP_COMPLICATION),
 		ComplicationLocation.LOC_CENTER => new Complications.Id(_DEFAULT_CENTER_COMPLICATION),
 		ComplicationLocation.LOC_BOTTOM => new Complications.Id(_DEFAULT_BOTTOM_COMPLICATION),
-		ComplicationLocation.LOC_RIGHT => new Complications.Id(_DEFAULT_RIGHT_COMPLICATION),
-		ComplicationLocation.LOC_LEFT => new Complications.Id(_DEFAULT_LEFT_COMPLICATION),
+		ComplicationLocation.LOC_R3 => new Complications.Id(_DEFAULT_RING_3),
+		ComplicationLocation.LOC_R2 => new Complications.Id(_DEFAULT_RING_2),
+		ComplicationLocation.LOC_R1 => new Complications.Id(_DEFAULT_RING_1),
 	};
 
 	function initialize() {
@@ -138,16 +148,14 @@ class TzoltechView extends WatchUi.WatchFace {
 	function onLayout(dc as Dc) as Void {
 		dc.setAntiAlias(true);
 		setLayout([
-			new RingDrawable({}),
+			_ringsDrawable,
 			_bgGradient,
 			_timeDrawable,
 			_complicationTop,
 			_complicationCenter,
 			_complicationBottom,
 		]);
-		// setLayout([new RingDrawable({})]);
-
-		var fontRegular = WatchUi.loadResource($.Rez.Fonts.tzoltech) as FontResource;
+		var fontRegular = WatchUi.loadResource($.Rez.Fonts.tzoltechLarge) as FontResource;
 
 		var dcHeight = dc.getHeight();
 		var dcWidth = dc.getWidth();
@@ -185,16 +193,19 @@ class TzoltechView extends WatchUi.WatchFace {
 		}
 
 		var compTextHeight = textDimensions[1];
-		_complicationCenter.setLoc(centerX, centerY - compTextHeight + fontDescent);
-		_complicationTop.setLoc(
-			centerX,
-			centerY - (clockTextDimensions[1] + _padding + compTextHeight)
-		);
-		_complicationBottom.setLoc(centerX, centerY + clockTextDimensions[1]);
+		// _complicationCenter.setLoc(centerX, centerY - compTextHeight + fontDescent);
+		// _complicationTop.setLoc(
+		// 	centerX,
+		// 	centerY - (clockTextDimensions[1] + _padding + compTextHeight)
+		// );
+		// _complicationBottom.setLoc(centerX, centerY + clockTextDimensions[1]);
+		_complicationCenter.setLoc(centerX, centerY + clockTextDimensions[1] / 2);
+		_complicationTop.setLoc(centerX, centerY - (clockTextDimensions[1] / 2 + compTextHeight));
+		_complicationBottom.setLoc(centerX, centerY + clockTextDimensions[1] / 2 + compTextHeight);
 	}
 
 	private function _initializeStorage() as Void {
-		// 0b11111 means all complications visible
+		// 0b111111 means all complications visible
 		if (Storage.getValue(StorageKeys.KEY_VISIBILITY_FLAGS) == null) {
 			Storage.setValue(StorageKeys.KEY_VISIBILITY_FLAGS, 63);
 		}
@@ -215,10 +226,60 @@ class TzoltechView extends WatchUi.WatchFace {
 	// loading resources into memory.
 	function onShow() as Void {
 		_setComplicationVisibility();
+
+		if (_settingsChanged) {
+			_loadComplications();
+			// Update text manually, this one might not be necessary
+			var slotLocations = _complicationAssignments.keys();
+			for (var i = 0; i < slotLocations.size(); i++) {
+				var slotLocation = slotLocations[i] as ComplicationLocation.Value;
+				var complicationId = _complicationAssignments.get(slotLocation) as Complications.Id;
+				var formatted = ComplicationUtils.getFormattedCompStr(complicationId, slotLocation);
+				_updateComplicationText(formatted, slotLocation);
+			}
+			_settingsChanged = false;
+		} else {
+			_subscribeToComplications();
+		}
+
+		var storedAccentColor = Storage.getValue(StorageKeys.KEY_ACCENT_COLOR);
+		var storedDataColor = Storage.getValue(StorageKeys.KEY_DATA_COLOR);
+
+		var accentColorToUse, dataColorToUse;
+
+		if (storedDataColor instanceof Number) {
+			dataColorToUse = storedDataColor;
+			// _indicatorRight.setHues(null, dataColorToUse);
+			// _indicatorLeft.setHues(null, dataColorToUse);
+			_ringsDrawable.setHues(null, dataColorToUse);
+			_bgGradient.setHues(null, dataColorToUse);
+		}
+
+		if (storedAccentColor instanceof Number) {
+			accentColorToUse = storedAccentColor;
+			// _indicatorRight.setHues(accentColorToUse, null);
+			// _indicatorLeft.setHues(accentColorToUse, null);
+			_ringsDrawable.setHues(accentColorToUse, null);
+			_bgGradient.setHues(accentColorToUse, null);
+		}
 	}
 
 	// Update the view
 	function onUpdate(dc as Dc) as Void {
+		var isHighPowerMode =
+			System has :getDisplayMode
+				? System.getDisplayMode() == System.DISPLAY_MODE_HIGH_POWER
+				: false;
+		if (isHighPowerMode) {
+			_complicationTop.setColor(Graphics.COLOR_LT_GRAY);
+			_complicationCenter.setColor(Graphics.COLOR_LT_GRAY);
+			_complicationBottom.setColor(Graphics.COLOR_LT_GRAY);
+		} else {
+			_complicationTop.setColor(Graphics.COLOR_DK_GRAY);
+			_complicationCenter.setColor(Graphics.COLOR_DK_GRAY);
+			_complicationBottom.setColor(Graphics.COLOR_DK_GRAY);
+		}
+
 		// Call the parent onUpdate function to redraw the layout
 		View.onUpdate(dc);
 	}
@@ -233,4 +294,8 @@ class TzoltechView extends WatchUi.WatchFace {
 
 	// Terminate any active timers and prepare for slow updates.
 	function onEnterSleep() as Void {}
+
+	public function notifyComplicationChanged() as Void {
+		_settingsChanged = true;
+	}
 }

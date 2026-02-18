@@ -75,8 +75,10 @@ class BackgroundGradient extends WatchUi.Drawable {
 
 		// Unlcear why this is needed, but it makes the gradient align better with the text.
 		var correction = 1;
-		Y_START = _locY - CHAR_H - padding + correction;
-		X_START = _locX - CHAR_W;
+		// Y_START = _locY - CHAR_H - padding + correction;
+		// X_START = _locX - CHAR_W;
+		Y_START = _locY - CHAR_H / 2 + correction;
+		X_START = _locX - CHAR_W * 2 - padding / 2;
 		Y_END = Y_START + CHAR_H;
 
 		if (System.getDeviceSettings().is24Hour) {
@@ -119,11 +121,15 @@ class BackgroundGradient extends WatchUi.Drawable {
 		}
 
 		// Second gradient
-		var Y_START_2 = Y_END + padding;
-		var Y_END_2 = Y_START_2 + CHAR_H;
+		// var Y_START_2 = Y_END + padding;
+		// var Y_END_2 = Y_START_2 + CHAR_H;
+		var Y_START_2 = Y_START;
+		var Y_END_2 = Y_START + CHAR_H;
+		var X_START_2 = _locX + padding / 2;
+
 		Utils.drawGradient(
 			dc,
-			X_START,
+			X_START_2,
 			Y_START_2,
 			CHAR_W * 2,
 			Y_END_2,
@@ -138,8 +144,12 @@ class BackgroundGradient extends WatchUi.Drawable {
 
 		if (!needsTwoDigitsMin) {
 			dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
-			dc.fillRectangle(X_START, Y_START_2, CHAR_W, CHAR_H);
+			dc.fillRectangle(X_START_2, Y_START_2, CHAR_W, CHAR_H);
 		}
+
+		dc.setPenWidth(4);
+		dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
+		dc.drawLine(_locX, _locY - CHAR_H / 4, _locX, _locY + CHAR_H / 4);
 
 		// FOR debugging
 		// dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);

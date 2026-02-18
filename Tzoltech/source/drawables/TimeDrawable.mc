@@ -85,20 +85,36 @@ class TimeDrawable extends WatchUi.Drawable {
 		var timeStrings = _getTimeStrings();
 
 		dc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_BLACK);
+		// dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_BLACK); // debugging
 
 		var textDimensions = dc.getTextDimensions(timeStrings[0], _font);
 		var textWidth = textDimensions[0];
 		var textHeight = textDimensions[1];
 
+		// _locX,
+		// _locY - textHeight - _padding,
+
+		var xFirstNumbers = _locX - textWidth / 2 - _padding / 2;
+		var yFirstNumbers = _locY - textHeight / 2;
+
 		dc.drawText(
-			_locX,
-			_locY - textHeight - _padding,
+			xFirstNumbers,
+			yFirstNumbers,
 			_font,
 			timeStrings[0],
 			Graphics.TEXT_JUSTIFY_CENTER
 		);
 
-		dc.drawText(_locX, _locY, _fontMinutes, timeStrings[1], Graphics.TEXT_JUSTIFY_CENTER);
+		// _locX, _locY
+		var xSecondNumbers = _locX + textWidth / 2 + _padding / 2;
+		var ySecondNumbers = _locY - textHeight / 2;
+		dc.drawText(
+			xSecondNumbers,
+			ySecondNumbers,
+			_fontMinutes,
+			timeStrings[1],
+			Graphics.TEXT_JUSTIFY_CENTER
+		);
 
 		// Utils.log("_locY: " + _locY);
 		// Utils.log("textHeight: " + textHeight);

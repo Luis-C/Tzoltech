@@ -6,22 +6,35 @@ import Toybox.Graphics;
 import Toybox.SensorHistory;
 import Toybox.Time;
 import Toybox.Time.Gregorian;
+import Utils;
 
 class RingDrawable extends WatchUi.Drawable {
 	private var _ringPNG as BitmapResource?;
+	private var _firstHue as Dictionary<CHANNEL, Number>;
+	private var _finalHue as Dictionary<CHANNEL, Number>;
 
-	public function initialize(params as Dictionary) {
-		Drawable.initialize(
-			params as
-				{
-					:height as Double or Float or Long or Number,
-					:locX as Double or Float or Long or Number,
-					:locY as Double or Float or Long or Number,
-					:identifier as Object,
-					:width as Double or Float or Long or Number,
-					:visible as Boolean,
-				}
-		);
+	public function initialize(
+		firstHue as Number,
+		finalHue as Number,
+		params as
+			{
+				:visible as Boolean,
+			}
+	) {
+		Drawable.initialize(params);
+
+		_firstHue = Utils.extractRGB(firstHue);
+		_finalHue = Utils.extractRGB(finalHue);
+	}
+
+	function setHues(firstHue as Number?, finalHue as Number?) as RingDrawable {
+		if (firstHue != null) {
+			_firstHue = Utils.extractRGB(firstHue);
+		}
+		if (finalHue != null) {
+			_finalHue = Utils.extractRGB(finalHue);
+		}
+		return self;
 	}
 
 	// Create a method to get the SensorHistoryIterator object
@@ -49,12 +62,12 @@ class RingDrawable extends WatchUi.Drawable {
 	// 	}
 	// }
 
-	function getFlowerSVG(value as Number) as BitmapResource {
-		// _requiresSpin = true;
-		var png = Application.loadResource(Rez.Drawables.OuterRing) as BitmapResource;
-		// _currentFlower = "prime";
-		return png;
-	}
+	// function getFlowerSVG(value as Number) as BitmapResource {
+	// 	// _requiresSpin = true;
+	// 	var png = Application.loadResource(Rez.Drawables.OuterRing) as BitmapResource;
+	// 	// _currentFlower = "prime";
+	// 	return png;
+	// }
 
 	// function getFlowerPNG(value as Number) as BitmapResource {
 	// if (value >= 80) {
@@ -96,8 +109,8 @@ class RingDrawable extends WatchUi.Drawable {
 		// dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
 		// dc.fillCircle(centerX, centerY, 224);
 
-		var firstHue = Utils.extractRGB(Graphics.COLOR_RED);
-		var finalHue = Utils.extractRGB(Graphics.COLOR_YELLOW);
+		// var firstHue = Utils.extractRGB(Graphics.COLOR_RED);
+		// var finalHue = Utils.extractRGB(Graphics.COLOR_YELLOW);
 
 		var isHighPowerMode =
 			System has :getDisplayMode
@@ -107,15 +120,15 @@ class RingDrawable extends WatchUi.Drawable {
 		Utils.drawGradientCircle(
 			dc,
 			centerX,
-			176, // start
+			172, // start
 			224,
 			255, //alpha
-			firstHue[Utils.CHANNEL_R] as Number,
-			finalHue[Utils.CHANNEL_R] as Number,
-			firstHue[Utils.CHANNEL_G] as Number,
-			finalHue[Utils.CHANNEL_G] as Number,
-			firstHue[Utils.CHANNEL_B] as Number,
-			finalHue[Utils.CHANNEL_B] as Number
+			_firstHue[Utils.CHANNEL_R] as Number,
+			_finalHue[Utils.CHANNEL_R] as Number,
+			_firstHue[Utils.CHANNEL_G] as Number,
+			_finalHue[Utils.CHANNEL_G] as Number,
+			_firstHue[Utils.CHANNEL_B] as Number,
+			_finalHue[Utils.CHANNEL_B] as Number
 		);
 
 		var color = Graphics.COLOR_LT_GRAY;
@@ -123,22 +136,31 @@ class RingDrawable extends WatchUi.Drawable {
 			color = Graphics.COLOR_DK_GRAY;
 		}
 
+		var hRingWidth = 20;
+		var mRingWidth = 20;
+		var sRingWidth = 14;
+
+		// where to draw the ring (accounting for the width)
+		var hRingR = 214;
+		var mRingR = 194;
+		var sRingR = 178;
+
 		// HOURS
-		dc.setPenWidth(20);
+		dc.setPenWidth(hRingWidth);
 		dc.setColor(color, Graphics.COLOR_TRANSPARENT);
-		dc.drawArc(centerX, centerY, 217, Graphics.ARC_COUNTER_CLOCKWISE, 0, angleHours);
+		dc.drawArc(centerX, centerY, hRingR, Graphics.ARC_COUNTER_CLOCKWISE, 0, angleHours);
 
 		// min
-		dc.setPenWidth(20);
-		dc.drawArc(centerX, centerY, 202, Graphics.ARC_COUNTER_CLOCKWISE, 0, angleMinutes);
+		dc.setPenWidth(mRingWidth);
+		dc.drawArc(centerX, centerY, mRingR, Graphics.ARC_COUNTER_CLOCKWISE, 0, angleMinutes);
 
 		// seconds
 		if (isHighPowerMode) {
-			dc.setPenWidth(17);
-			dc.drawArc(centerX, centerY, 184, Graphics.ARC_COUNTER_CLOCKWISE, 0, angleSeconds);
+			dc.setPenWidth(sRingWidth);
+			dc.drawArc(centerX, centerY, sRingR, Graphics.ARC_COUNTER_CLOCKWISE, 0, angleSeconds);
 		} else {
-			dc.setPenWidth(17);
-			dc.drawArc(centerX, centerY, 184, Graphics.ARC_COUNTER_CLOCKWISE, 0, 360);
+			dc.setPenWidth(sRingWidth);
+			dc.drawArc(centerX, centerY, sRingR, Graphics.ARC_COUNTER_CLOCKWISE, 0, 360);
 		}
 
 		// debug
@@ -148,19 +170,19 @@ class RingDrawable extends WatchUi.Drawable {
 
 		// hides extra
 		dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-		dc.fillCircle(centerX, centerY, 159);
+		dc.fillCircle(centerX, centerY, 130);
 
-		var outerRingPNG = getFlowerSVG(0);
-		var bitmap = outerRingPNG as BitmapResource;
+		var outerRingPNG = Application.loadResource(Rez.Drawables.OuterRing) as BitmapResource; //getFlowerSVG(0);
+		var ring1 = outerRingPNG as BitmapResource;
 
 		var x = 0;
 		var y = 0;
 
-		dc.drawBitmap2(x, y, bitmap, {
+		dc.drawBitmap2(x, y, ring1, {
 			:bitmapX => 0,
 			:bitmapY => 0,
-			:bitmapWidth => bitmap.getWidth(),
-			:bitmapHeight => bitmap.getHeight(),
+			:bitmapWidth => ring1.getWidth(),
+			:bitmapHeight => ring1.getHeight(),
 			:tintColor => Graphics.COLOR_TRANSPARENT,
 		});
 

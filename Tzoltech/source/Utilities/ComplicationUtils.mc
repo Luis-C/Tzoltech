@@ -11,8 +11,11 @@ module ComplicationLocation {
 		LOC_TOP = "T",
 		LOC_CENTER = "C",
 		LOC_BOTTOM = "B",
-		LOC_RIGHT = "R",
-		LOC_LEFT = "L",
+		// LOC_RIGHT = "R",
+		// LOC_LEFT = "L",
+		LOC_R1 = "R1",
+		LOC_R2 = "R2",
+		LOC_R3 = "R3",
 	}
 }
 

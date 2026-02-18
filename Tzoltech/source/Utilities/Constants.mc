@@ -6,7 +6,7 @@ module StorageKeys {
 		KEY_DATA_COLOR = "KDC", //dataColorLabel
 		KEY_DATA_COLOR_LABEL = "KDCL", // dataColorLabel
 		KEY_INVERT_RECOVERY = "KIR", // invertRecovery
-		KEY_INVERT_STRESS = "KIR", // invertStress
+		KEY_INVERT_STRESS = "KIS", // invertStress
 		KEY_WHITE_BKG = "WBKG", // isBkgWhite
 
 		KEY_VISIBILITY_FLAGS = "KVF", // visibilityFlags
@@ -18,8 +18,11 @@ module VisibilityFlags {
 		FLAG_TOP = 1 << 0,
 		FLAG_CENTER = 1 << 1,
 		FLAG_BOTTOM = 1 << 2,
-		FLAG_LEFT = 1 << 3,
-		FLAG_RIGHT = 1 << 4,
+		// FLAG_LEFT = 1 << 3,
+		// FLAG_RIGHT = 1 << 4,
+		FLAG_R1 = 1 << 3,
+		FLAG_R2 = 1 << 4,
+		FLAG_R3 = 1 << 5,
 	}
 }
 
