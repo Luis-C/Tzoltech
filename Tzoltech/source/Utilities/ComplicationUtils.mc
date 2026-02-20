@@ -4,6 +4,7 @@ import Toybox.Lang;
 import Toybox.Time;
 import Toybox.Weather;
 import Toybox.Application;
+import Toybox.WatchUi;
 
 //! Complication locations
 module ComplicationLocation {
@@ -29,6 +30,24 @@ module ComplicationUtils {
 	var _forecast2DayStr as String = "--";
 	var _forecast3Day as Weather.Condition = Weather.CONDITION_UNKNOWN;
 	var _forecast3DayStr as String = "--";
+
+	var _complicationIcons as Dictionary = {
+		Complications.COMPLICATION_TYPE_BATTERY => Rez.Drawables.battery,
+		Complications.COMPLICATION_TYPE_SOLAR_INPUT => Rez.Drawables.solar,
+		Complications.COMPLICATION_TYPE_STRESS => Rez.Drawables.stress,
+		Complications.COMPLICATION_TYPE_BODY_BATTERY => Rez.Drawables.body,
+		Complications.COMPLICATION_TYPE_PULSE_OX => Rez.Drawables.pulseOx,
+	};
+
+	function getComplicationIcon(complicationType as Complications.Type) as BitmapResource? {
+		if (_complicationIcons.hasKey(complicationType)) {
+			return (
+				Application.loadResource(_complicationIcons[complicationType] as ResourceId) as
+				BitmapResource?
+			);
+		}
+		return null;
+	}
 
 	//! Wrapped in try-catch since subscribing may fail due to different feature support per device
 	function safeSubscribeToUpdates(id as Complications.Id?) as Void {

@@ -9,9 +9,16 @@ import Toybox.Time.Gregorian;
 import Utils;
 
 class RingDrawable extends WatchUi.Drawable {
-	private var _ringPNG as BitmapResource?;
 	private var _firstHue as Dictionary<CHANNEL, Number>;
 	private var _finalHue as Dictionary<CHANNEL, Number>;
+
+	private var _percentRing1 as Number = 0;
+	private var _percentRing2 as Number = 0;
+	private var _percentRing3 as Number = 0;
+
+	private var _iconRing1 as BitmapResource?;
+	private var _iconRing2 as BitmapResource?;
+	private var _iconRing3 as BitmapResource?;
 
 	public function initialize(
 		firstHue as Number,
@@ -33,6 +40,28 @@ class RingDrawable extends WatchUi.Drawable {
 		}
 		if (finalHue != null) {
 			_finalHue = Utils.extractRGB(finalHue);
+		}
+		return self;
+	}
+
+	function setPercentage(ring as Number, percentage as Number) as RingDrawable {
+		if (ring == 1) {
+			_percentRing1 = percentage;
+		} else if (ring == 2) {
+			_percentRing2 = percentage;
+		} else if (ring == 3) {
+			_percentRing3 = percentage;
+		}
+		return self;
+	}
+
+	function setIcon(ring as Number, icon as BitmapResource) as RingDrawable {
+		if (ring == 1) {
+			_iconRing1 = icon;
+		} else if (ring == 2) {
+			_iconRing2 = icon;
+		} else if (ring == 3) {
+			_iconRing3 = icon;
 		}
 		return self;
 	}
@@ -94,12 +123,16 @@ class RingDrawable extends WatchUi.Drawable {
 	// }
 
 	function draw(dc) {
-		dc.setAntiAlias(true);
+		dc.setAntiAlias(false);
 
-		var clockTime = System.getClockTime();
-		var angleHours = -clockTime.hour * 15; //
-		var angleMinutes = -clockTime.min * 6; // 6 degrees per minute
-		var angleSeconds = -clockTime.sec * 6; // 6 degrees per second
+		// var clockTime = System.getClockTime();
+		// var angleHours = -clockTime.hour * 15; //
+		// var angleMinutes = -clockTime.min * 6; // 6 degrees per minute
+		// var angleSeconds = -clockTime.sec * 6; // 6 degrees per second
+
+		var angleRing1 = -_percentRing1 * 3.6;
+		var angleRing2 = -_percentRing2 * 3.6;
+		var angleRing3 = -_percentRing3 * 3.6;
 
 		// System.println("Hours: " + clockTime.hour + " Angle: " + angleHours);
 
@@ -148,20 +181,20 @@ class RingDrawable extends WatchUi.Drawable {
 		// HOURS
 		dc.setPenWidth(hRingWidth);
 		dc.setColor(color, Graphics.COLOR_TRANSPARENT);
-		dc.drawArc(centerX, centerY, hRingR, Graphics.ARC_COUNTER_CLOCKWISE, 0, angleHours);
+		dc.drawArc(centerX, centerY, hRingR, Graphics.ARC_COUNTER_CLOCKWISE, 90, angleRing1 + 90);
 
 		// min
 		dc.setPenWidth(mRingWidth);
-		dc.drawArc(centerX, centerY, mRingR, Graphics.ARC_COUNTER_CLOCKWISE, 0, angleMinutes);
+		dc.drawArc(centerX, centerY, mRingR, Graphics.ARC_COUNTER_CLOCKWISE, 90, angleRing2 + 90);
 
 		// seconds
-		if (isHighPowerMode) {
-			dc.setPenWidth(sRingWidth);
-			dc.drawArc(centerX, centerY, sRingR, Graphics.ARC_COUNTER_CLOCKWISE, 0, angleSeconds);
-		} else {
-			dc.setPenWidth(sRingWidth);
-			dc.drawArc(centerX, centerY, sRingR, Graphics.ARC_COUNTER_CLOCKWISE, 0, 360);
-		}
+		// if (isHighPowerMode) {
+		dc.setPenWidth(sRingWidth);
+		dc.drawArc(centerX, centerY, sRingR, Graphics.ARC_COUNTER_CLOCKWISE, 90, angleRing3 + 90);
+		// } else {
+		// 	dc.setPenWidth(sRingWidth);
+		// 	dc.drawArc(centerX, centerY, sRingR, Graphics.ARC_COUNTER_CLOCKWISE, 0, 360);
+		// }
 
 		// debug
 		// dc.setPenWidth(5);
@@ -183,7 +216,7 @@ class RingDrawable extends WatchUi.Drawable {
 			:bitmapY => 0,
 			:bitmapWidth => ring1.getWidth(),
 			:bitmapHeight => ring1.getHeight(),
-			:tintColor => Graphics.COLOR_TRANSPARENT,
+			// :tintColor => Graphics.COLOR_TRANSPARENT,
 		});
 
 		var ring2 = Application.loadResource(Rez.Drawables.MiddleRing) as BitmapResource;
@@ -193,7 +226,7 @@ class RingDrawable extends WatchUi.Drawable {
 			:bitmapY => 0,
 			:bitmapWidth => ring2.getWidth(),
 			:bitmapHeight => ring2.getHeight(),
-			:tintColor => Graphics.COLOR_ORANGE,
+			// :tintColor => Graphics.COLOR_ORANGE,
 		});
 
 		var ring3 = Application.loadResource(Rez.Drawables.InnerRing) as BitmapResource;
@@ -203,8 +236,54 @@ class RingDrawable extends WatchUi.Drawable {
 			:bitmapY => 0,
 			:bitmapWidth => ring3.getWidth(),
 			:bitmapHeight => ring3.getHeight(),
-			:tintColor => Graphics.COLOR_ORANGE,
+			// :tintColor => Graphics.COLOR_ORANGE,
 		});
+
+		var iconH, iconW;
+		if (_iconRing1 != null) {
+			iconH = _iconRing1.getHeight();
+			iconW = _iconRing1.getWidth();
+		} else {
+			iconH = 0;
+			iconW = 0;
+		}
+		// dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
+		// dc.fillRectangle(227 - iconW / 2, 0, iconW, iconH * 3);
+
+		// dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_DK_GRAY);
+		// dc.setPenWidth(1);
+		// dc.drawRectangle(227 - iconW / 2, 0, iconW, iconH * 3);
+
+		if (_iconRing1 != null) {
+			// System.println(iconW);
+			dc.drawBitmap2(227 - iconW * 1.5, iconH * 2, _iconRing1, {
+				:bitmapX => 0,
+				:bitmapY => 0,
+				:bitmapWidth => _iconRing1.getWidth(),
+				:bitmapHeight => _iconRing1.getHeight(),
+				:tintColor => Graphics.COLOR_LT_GRAY,
+			});
+		}
+
+		if (_iconRing2 != null) {
+			dc.drawBitmap2(227 - iconW / 2, iconH * 2, _iconRing2, {
+				:bitmapX => 0,
+				:bitmapY => 0,
+				:bitmapWidth => _iconRing2.getWidth(),
+				:bitmapHeight => _iconRing2.getHeight(),
+				:tintColor => Graphics.COLOR_LT_GRAY,
+			});
+		}
+
+		if (_iconRing3 != null) {
+			dc.drawBitmap2(227 + iconW * 0.5, iconH * 2, _iconRing3, {
+				:bitmapX => 0,
+				:bitmapY => 0,
+				:bitmapWidth => _iconRing3.getWidth(),
+				:bitmapHeight => _iconRing3.getHeight(),
+				:tintColor => Graphics.COLOR_LT_GRAY,
+			});
+		}
 
 		// var color = Utils.getBBColor();
 		// var isHighPowerMode = false;

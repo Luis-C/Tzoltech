@@ -24,7 +24,7 @@ class TzoltechView extends WatchUi.WatchFace {
 	);
 
 	// LAYOUT
-	private var _padding as Number = 16;
+	private var _padding as Number = 14;
 	private var _vectorFontSize as Number = 34;
 
 	private const _DEFAULT_TOP_COMPLICATION = Complications.COMPLICATION_TYPE_DATE;
@@ -32,7 +32,7 @@ class TzoltechView extends WatchUi.WatchFace {
 	private const _DEFAULT_BOTTOM_COMPLICATION = Complications.COMPLICATION_TYPE_ALTITUDE;
 	private const _DEFAULT_RING_3 = Complications.COMPLICATION_TYPE_BATTERY;
 	private const _DEFAULT_RING_2 = Complications.COMPLICATION_TYPE_BODY_BATTERY;
-	private const _DEFAULT_RING_1 = Complications.COMPLICATION_TYPE_RECOVERY_TIME;
+	private const _DEFAULT_RING_1 = Complications.COMPLICATION_TYPE_STRESS;
 	private var _complicationAssignments as Dictionary<String, Complications.Id> = {
 		ComplicationLocation.LOC_TOP => new Complications.Id(_DEFAULT_TOP_COMPLICATION),
 		ComplicationLocation.LOC_CENTER => new Complications.Id(_DEFAULT_CENTER_COMPLICATION),
@@ -64,16 +64,35 @@ class TzoltechView extends WatchUi.WatchFace {
 				_updateComplicationText(formatted, slotLocation);
 
 				// Special cases:
+				if (slotLocation.equals(ComplicationLocation.LOC_R1)) {
+					var value = ComplicationUtils.getComplicationValue(complicationId);
+					// var label = ComplicationUtils.getComplicationLabel(complicationId);
+					var icon = ComplicationUtils.getComplicationIcon(complicationId.getType());
 
-				// if (slotLocation.equals(ComplicationLocation.LOC_RIGHT)) {
-				// 	var value = ComplicationUtils.getComplicationValue(complicationId);
-				// 	var label = ComplicationUtils.getComplicationLabel(complicationId);
-				// 	_updateIndicatorRight(label, value);
-				// } else if (slotLocation.equals(ComplicationLocation.LOC_LEFT)) {
-				// 	var value = ComplicationUtils.getComplicationValue(complicationId);
-				// 	var label = ComplicationUtils.getComplicationLabel(complicationId);
-				// 	_updateIndicatorLeft(label, value);
-				// }
+					if (icon != null) {
+						_ringsDrawable.setIcon(1, icon);
+					}
+
+					_ringsDrawable.setPercentage(1, value);
+				} else if (slotLocation.equals(ComplicationLocation.LOC_R2)) {
+					var value = ComplicationUtils.getComplicationValue(complicationId);
+					// var label = ComplicationUtils.getComplicationLabel(complicationId);
+					var icon = ComplicationUtils.getComplicationIcon(complicationId.getType());
+
+					if (icon != null) {
+						_ringsDrawable.setIcon(2, icon);
+					}
+					_ringsDrawable.setPercentage(2, value);
+				} else if (slotLocation.equals(ComplicationLocation.LOC_R3)) {
+					var value = ComplicationUtils.getComplicationValue(complicationId);
+					// var label = ComplicationUtils.getComplicationLabel(complicationId);
+					var icon = ComplicationUtils.getComplicationIcon(complicationId.getType());
+
+					if (icon != null) {
+						_ringsDrawable.setIcon(3, icon);
+					}
+					_ringsDrawable.setPercentage(3, value);
+				}
 			}
 		}
 
