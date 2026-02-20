@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="7.68" height="7.68" viewBox="0.00 0.00 64.00 64.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g stroke-linecap="round" id="BODY_BATTERY">
+<path d="M33.60,35.20 L32.06,35.14 L32.06,25.60 L41.60,25.60 L41.60,35.14 L36.80,35.20 L36.80,30.40 L38.40,30.40" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+<path d="M27.20,6.40 L30.40,12.80 L41.60,12.80 L51.20,20.80 L57.60,19.20 L46.40,6.40 L27.20,6.40 Z" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+<path d="M22.29,7.98 L25.55,14.48 L16.00,19.20 L11.85,26.59 L4.80,28.80 L11.20,16.00 L22.29,7.98 Z" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+<path d="M4.80,33.60 L11.18,31.92 L12.80,41.60 L16.22,46.91 L11.20,51.20 L6.40,44.80 L4.80,33.60 Z" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+<path d="M14.40,54.40 L19.20,49.60 L25.60,56.00 L25.60,60.80 L14.40,54.40 Z" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+<path d="M22.40,36.80 L27.20,36.80 L32.00,44.80 L40.00,44.80 L47.94,36.80 L52.80,36.80 L41.60,48.04 L41.60,60.80 L30.40,60.80 L30.40,48.04 L22.40,36.80 Z" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+</g>
+</svg>

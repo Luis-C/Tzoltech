@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="7.68" height="7.68" viewBox="0.00 0.00 64.00 64.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g stroke-linecap="round" id="STRESS">
+<path d="M32.00,38.40 L43.20,38.40 L52.80,48.00 L52.80,57.60 L35.20,57.60 L35.20,49.60 L43.20,49.60" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+<path d="M32.00,38.40 L20.80,38.40 L11.20,48.00 L11.20,57.60 L28.80,57.60 L28.80,49.60 L20.80,49.60" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+<path d="M32.00,11.20 L43.20,11.20 L43.20,27.20 L38.40,32.00 L32.00,32.00" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+<path d="M32.00,11.20 L20.80,11.20 L20.80,27.20 L25.60,32.00 L32.00,32.00" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+<path d="M32.00,16.00 L27.20,20.80 L36.80,20.80 L32.00,27.20" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+</g>
+</svg>

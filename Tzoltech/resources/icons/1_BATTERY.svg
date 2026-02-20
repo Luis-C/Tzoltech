@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="7.68" height="7.68" viewBox="0.00 0.00 64.00 64.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g stroke-linecap="round" id="BATTERY">
+<path d="M44.80,12.80 L44.80,59.20 L19.20,59.20 L19.20,12.80 L44.80,12.80 Z" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+<path d="M40.00,6.40 L40.00,12.80 L24.00,12.80 L24.00,6.40 L40.00,6.40 Z" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+<path d="M27.20,17.60 L40.00,17.60 L40.00,32.00 L24.00,32.00 L24.00,24.00 L32.06,24.00 L32.06,27.20" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+<path d="M27.20,38.40 L40.00,38.40 L40.00,52.80 L24.00,52.80 L24.00,44.80 L32.00,44.80 L32.00,48.04" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+</g>
+</svg>
