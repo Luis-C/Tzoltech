@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="7.68" height="7.68" viewBox="0.00 0.00 64.00 64.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g stroke-linecap="round" id="RECOVERY_TIME">
+<path d="M9.75,32.15 C9.75,32.19 9.75,32.07 9.75,32.02 C9.87,29.03 11.00,23.97 12.94,20.52 C13.98,18.73 18.18,14.42 20.54,12.87 C23.24,11.17 28.60,10.03 32.40,10.06 C36.29,10.14 41.53,11.58 44.64,13.73 C47.40,15.71 51.32,20.48 52.77,24.23 C54.11,27.85 54.15,36.06 53.23,38.86 C52.18,41.91 47.32,48.43 44.65,50.30 C42.56,51.73 35.79,54.00 33.38,54.20 C30.72,54.40 24.34,52.98 22.91,52.31 C22.53,52.13 21.72,51.70 20.48,51.03" fill="none" stroke="rgb(255, 255, 255)" stroke-width="5.00" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M32.00,21.59 L32.00,42.00" fill="none" stroke="rgb(255, 255, 255)" stroke-width="5.00" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M22.00,32.00 L41.99,31.79" fill="none" stroke="rgb(255, 255, 255)" stroke-width="5.00" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M10.00,32.00 L14.00,28.00" fill="none" stroke="rgb(255, 255, 255)" stroke-width="5.00" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M10.00,32.00 L6.00,28.00" fill="none" stroke="rgb(255, 255, 255)" stroke-width="5.00" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M15.78,46.98 C15.35,46.47 14.93,45.96 14.50,45.46 C14.49,45.45 14.52,45.48 14.53,45.50" fill="none" stroke="rgb(255, 255, 255)" stroke-width="5.00" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M12.00,41.00 C11.74,40.45 11.48,39.90 11.22,39.35 C11.20,39.31 11.16,39.21 11.18,39.24" fill="none" stroke="rgb(255, 255, 255)" stroke-width="5.00" stroke-opacity="1.00" stroke-linejoin="round"/>
+</g>
+</svg>
