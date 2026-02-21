@@ -96,12 +96,16 @@ class ColorPicker extends WatchUi.Picker {
 	private var _name as String;
 	private const N_FACTORIES = 3;
 
-	(:regularVersion)
-	private const R_RANGE = 31;
-	(:regularVersion)
-	private const G_RANGE = 63;
-	(:regularVersion)
-	private const B_RANGE = 31;
+	private const R_RANGE = 3;
+	private const G_RANGE = 3;
+	private const B_RANGE = 3;
+
+	// (:regularVersion)
+	// private const R_RANGE = 31;
+	// (:regularVersion)
+	// private const G_RANGE = 63;
+	// (:regularVersion)
+	// private const B_RANGE = 31;
 
 	// (:mipVersion)
 	// private const R_RANGE = 3;

@@ -98,19 +98,27 @@ class ColorFactory extends WatchUi.PickerFactory {
 	private var _channel as String;
 	private var _currColor as ColorModel;
 
-	(:regularVersion)
-	private const R_UNIT = 0x8;
-	(:regularVersion)
-	private const G_UNIT = 0x4;
-	(:regularVersion)
-	private const B_UNIT = 0x8;
+	private const R_UNIT = 0x55;
+	private const G_UNIT = 0x55;
+	private const B_UNIT = 0x55;
 
-	(:regularVersion)
-	private const R_D = 8;
-	(:regularVersion)
-	private const G_D = 4;
-	(:regularVersion)
-	private const B_D = 8;
+	private const R_D = 85;
+	private const G_D = 85;
+	private const B_D = 85;
+
+	// (:regularVersion)
+	// private const R_UNIT = 0x8;
+	// (:regularVersion)
+	// private const G_UNIT = 0x4;
+	// (:regularVersion)
+	// private const B_UNIT = 0x8;
+
+	// (:regularVersion)
+	// private const R_D = 8;
+	// (:regularVersion)
+	// private const G_D = 4;
+	// (:regularVersion)
+	// private const B_D = 8;
 
 	// (:mipVersion)
 	// private const R_UNIT = 0x55;
@@ -185,7 +193,9 @@ class ColorFactory extends WatchUi.PickerFactory {
 				hexComponent = (R_UNIT * index).format("%02X");
 			}
 
-			text = Lang.format("$1$\n$2$/$3$", [hexComponent, index, getSize() - 1]);
+			var percentage = ((index * _increment.toFloat()) / (_stop - _start)) * 100.0;
+
+			text = Lang.format("$1$\n$2$%", [hexComponent, percentage.format("%.0f")]);
 		}
 
 		return new ColorPreview(value as ColorValue, text, _channel, _currColor);

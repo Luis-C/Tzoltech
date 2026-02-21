@@ -69,10 +69,13 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
 			var compIterator = Complications.getComplications();
 			var currComp = compIterator.next();
 
-			var allowedSideComplications = [
+			var allowedRingComplications = [
 				// Complications.Type.STEP_COUNT, // NOTE: consider goals
 				// Complications.COMPLICATION_TYPE_HEART_RATE, // TODO:
-				// Complications.COMPLICATION_TYPE_RECOVERY_TIME, // TODO:
+				Complications.COMPLICATION_TYPE_FLOORS_CLIMBED,
+				Complications.COMPLICATION_TYPE_STEPS,
+				Complications.COMPLICATION_TYPE_INTENSITY_MINUTES,
+				Complications.COMPLICATION_TYPE_RECOVERY_TIME,
 				Complications.COMPLICATION_TYPE_BATTERY,
 				Complications.COMPLICATION_TYPE_BODY_BATTERY,
 				Complications.COMPLICATION_TYPE_PULSE_OX,
@@ -89,7 +92,7 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
 
 				var compType = (currComp.complicationId as Complications.Id).getType();
 
-				if (allowedSideComplications.indexOf(compType) < 0) {
+				if (allowedRingComplications.indexOf(compType) < 0) {
 					currComp = compIterator.next();
 					continue;
 				}

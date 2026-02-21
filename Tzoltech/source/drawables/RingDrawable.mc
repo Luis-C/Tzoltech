@@ -12,9 +12,9 @@ class RingDrawable extends WatchUi.Drawable {
 	private var _firstHue as Dictionary<CHANNEL, Number>;
 	private var _finalHue as Dictionary<CHANNEL, Number>;
 
-	private var _percentRing1 as Number = 0;
-	private var _percentRing2 as Number = 0;
-	private var _percentRing3 as Number = 0;
+	private var _percentRing1 as Number or Float = 0;
+	private var _percentRing2 as Number or Float = 0;
+	private var _percentRing3 as Number or Float = 0;
 
 	private var _iconRing1 as BitmapResource?;
 	private var _iconRing2 as BitmapResource?;
@@ -44,7 +44,7 @@ class RingDrawable extends WatchUi.Drawable {
 		return self;
 	}
 
-	function setPercentage(ring as Number, percentage as Number) as RingDrawable {
+	function setPercentage(ring as Number, percentage as Number or Float) as RingDrawable {
 		if (ring == 1) {
 			_percentRing1 = percentage;
 		} else if (ring == 2) {
@@ -55,7 +55,7 @@ class RingDrawable extends WatchUi.Drawable {
 		return self;
 	}
 
-	function setIcon(ring as Number, icon as BitmapResource) as RingDrawable {
+	function setIcon(ring as Number, icon as BitmapResource?) as RingDrawable {
 		if (ring == 1) {
 			_iconRing1 = icon;
 		} else if (ring == 2) {
@@ -150,47 +150,116 @@ class RingDrawable extends WatchUi.Drawable {
 				? System.getDisplayMode() == System.DISPLAY_MODE_HIGH_POWER
 				: false;
 
-		Utils.drawGradientCircle(
-			dc,
-			centerX,
-			172, // start
-			224,
-			255, //alpha
-			_firstHue[Utils.CHANNEL_R] as Number,
-			_finalHue[Utils.CHANNEL_R] as Number,
-			_firstHue[Utils.CHANNEL_G] as Number,
-			_finalHue[Utils.CHANNEL_G] as Number,
-			_firstHue[Utils.CHANNEL_B] as Number,
-			_finalHue[Utils.CHANNEL_B] as Number
-		);
+		var scaleFactor = dc.getWidth() / 454.0; // Assuming original design is for 454px width
 
-		var color = Graphics.COLOR_LT_GRAY;
-		if (!isHighPowerMode) {
-			color = Graphics.COLOR_DK_GRAY;
+		if (isHighPowerMode) {
+			Utils.drawGradientCircle(
+				dc,
+				// centerX,
+				(173 * scaleFactor).toNumber(), // start
+				(227 * scaleFactor).toNumber(),
+				255, //alpha
+				_firstHue[Utils.CHANNEL_R] as Number,
+				_finalHue[Utils.CHANNEL_R] as Number,
+				_firstHue[Utils.CHANNEL_G] as Number,
+				_finalHue[Utils.CHANNEL_G] as Number,
+				_firstHue[Utils.CHANNEL_B] as Number,
+				_finalHue[Utils.CHANNEL_B] as Number
+			);
+		} else {
+			Utils.drawGradientCircle(
+				dc,
+				// centerX,
+				(173 * scaleFactor).toNumber(), // start
+				(200 * scaleFactor).toNumber(),
+				255, //alpha
+				_firstHue[Utils.CHANNEL_R] as Number,
+				0,
+				_firstHue[Utils.CHANNEL_G] as Number,
+				0,
+				_firstHue[Utils.CHANNEL_B] as Number,
+				0
+			);
+
+			Utils.drawGradientCircle(
+				dc,
+				// centerX,
+				(200 * scaleFactor).toNumber(), // start
+				(227 * scaleFactor).toNumber(),
+				255, //alpha
+				_firstHue[Utils.CHANNEL_R] as Number,
+				0,
+				_firstHue[Utils.CHANNEL_G] as Number,
+				0,
+				_firstHue[Utils.CHANNEL_B] as Number,
+				0
+			);
 		}
 
-		var hRingWidth = 20;
-		var mRingWidth = 20;
-		var sRingWidth = 14;
+		var color = Graphics.COLOR_DK_GRAY;
+		if (!isHighPowerMode) {
+			color = Graphics.COLOR_BLACK;
+		}
+
+		var hRingWidth = 23 * scaleFactor;
+		var mRingWidth = 17 * scaleFactor;
+		var sRingWidth = 14 * scaleFactor;
 
 		// where to draw the ring (accounting for the width)
-		var hRingR = 214;
-		var mRingR = 194;
-		var sRingR = 178;
+		var hRingR = 214 * scaleFactor;
+		var mRingR = 194 * scaleFactor;
+		var sRingR = 178 * scaleFactor;
 
 		// HOURS
 		dc.setPenWidth(hRingWidth);
 		dc.setColor(color, Graphics.COLOR_TRANSPARENT);
-		dc.drawArc(centerX, centerY, hRingR, Graphics.ARC_COUNTER_CLOCKWISE, 90, angleRing1 + 90);
+
+		// System.println(angleRing1);
+		// System.println(angleRing2);
+		// System.println(angleRing3);
+
+		if (angleRing1 > -359) {
+			dc.drawArc(
+				centerX,
+				centerY,
+				hRingR,
+				Graphics.ARC_COUNTER_CLOCKWISE,
+				90,
+				angleRing1 + 90
+			);
+		}
 
 		// min
+		// if (isHighPowerMode) {
 		dc.setPenWidth(mRingWidth);
-		dc.drawArc(centerX, centerY, mRingR, Graphics.ARC_COUNTER_CLOCKWISE, 90, angleRing2 + 90);
+		if (angleRing2 > -359) {
+			dc.drawArc(
+				centerX,
+				centerY,
+				mRingR,
+				Graphics.ARC_COUNTER_CLOCKWISE,
+				90,
+				angleRing2 + 90
+			);
+		}
+		// } else {
+		// 	dc.setPenWidth(sRingWidth);
+		// 	dc.drawArc(centerX, centerY, sRingR, Graphics.ARC_COUNTER_CLOCKWISE, 0, 360);
+		// }
 
 		// seconds
 		// if (isHighPowerMode) {
 		dc.setPenWidth(sRingWidth);
-		dc.drawArc(centerX, centerY, sRingR, Graphics.ARC_COUNTER_CLOCKWISE, 90, angleRing3 + 90);
+		if (angleRing3 > -359) {
+			dc.drawArc(
+				centerX,
+				centerY,
+				sRingR,
+				Graphics.ARC_COUNTER_CLOCKWISE,
+				90,
+				angleRing3 + 90
+			);
+		}
 		// } else {
 		// 	dc.setPenWidth(sRingWidth);
 		// 	dc.drawArc(centerX, centerY, sRingR, Graphics.ARC_COUNTER_CLOCKWISE, 0, 360);
@@ -202,8 +271,8 @@ class RingDrawable extends WatchUi.Drawable {
 		// dc.drawArc(centerX, centerY, 162, Graphics.ARC_COUNTER_CLOCKWISE, 0, angleSeconds);
 
 		// hides extra
-		dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-		dc.fillCircle(centerX, centerY, 130);
+		// dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+		// dc.fillCircle(centerX, centerY, 130);
 
 		var outerRingPNG = Application.loadResource(Rez.Drawables.OuterRing) as BitmapResource; //getFlowerSVG(0);
 		var ring1 = outerRingPNG as BitmapResource;
@@ -256,7 +325,7 @@ class RingDrawable extends WatchUi.Drawable {
 
 		if (_iconRing1 != null) {
 			// System.println(iconW);
-			dc.drawBitmap2(227 - iconW * 1.5, iconH * 2, _iconRing1, {
+			dc.drawBitmap2(centerX - iconW * 1.5, iconH * 2, _iconRing1, {
 				:bitmapX => 0,
 				:bitmapY => 0,
 				:bitmapWidth => _iconRing1.getWidth(),
@@ -266,7 +335,7 @@ class RingDrawable extends WatchUi.Drawable {
 		}
 
 		if (_iconRing2 != null) {
-			dc.drawBitmap2(227 - iconW / 2, iconH * 2, _iconRing2, {
+			dc.drawBitmap2(centerX - iconW / 2, iconH * 2, _iconRing2, {
 				:bitmapX => 0,
 				:bitmapY => 0,
 				:bitmapWidth => _iconRing2.getWidth(),
@@ -276,7 +345,7 @@ class RingDrawable extends WatchUi.Drawable {
 		}
 
 		if (_iconRing3 != null) {
-			dc.drawBitmap2(227 + iconW * 0.5, iconH * 2, _iconRing3, {
+			dc.drawBitmap2(centerX + iconW * 0.5, iconH * 2, _iconRing3, {
 				:bitmapX => 0,
 				:bitmapY => 0,
 				:bitmapWidth => _iconRing3.getWidth(),

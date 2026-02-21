@@ -5,7 +5,7 @@ import Toybox.Time;
 import Toybox.Weather;
 import Toybox.Application;
 import Toybox.WatchUi;
-
+import Toybox.ActivityMonitor;
 //! Complication locations
 module ComplicationLocation {
 	enum Value {
@@ -37,6 +37,7 @@ module ComplicationUtils {
 		Complications.COMPLICATION_TYPE_STRESS => Rez.Drawables.stress,
 		Complications.COMPLICATION_TYPE_BODY_BATTERY => Rez.Drawables.body,
 		Complications.COMPLICATION_TYPE_PULSE_OX => Rez.Drawables.pulseOx,
+		Complications.COMPLICATION_TYPE_RECOVERY_TIME => Rez.Drawables.recovery,
 	};
 
 	function getComplicationIcon(complicationType as Complications.Type) as BitmapResource? {
@@ -112,7 +113,7 @@ module ComplicationUtils {
 
 	function getFormattedCompStr(
 		complicationId as Complications.Id,
-		location as ComplicationLocation.Value
+		includeLabel as Boolean
 	) as String {
 		var complication, label, value;
 
@@ -120,21 +121,24 @@ module ComplicationUtils {
 			complication = Complications.getComplication(complicationId);
 			var complicationType = complicationId.getType();
 
-			label = complication.shortLabel;
-			if (label == null) {
-				label = complication.longLabel;
-			}
-			if (label == null || label.length() > 7) {
+			if (includeLabel) {
+				label = complication.shortLabel;
+				if (label == null) {
+					label = complication.longLabel;
+				}
+				if (label == null || label.length() > 7) {
+					label = "";
+				}
+
+				var customLabel = getCustomCompLabel(complicationType);
+
+				if (customLabel != null) {
+					label = customLabel;
+				}
+				label = label.toUpper();
+			} else {
 				label = "";
 			}
-
-			var customLabel = getCustomCompLabel(complicationType);
-
-			if (customLabel != null) {
-				label = customLabel;
-			}
-
-			label = label.toUpper();
 
 			var isWeatherRelated =
 				complicationType.equals(Complications.COMPLICATION_TYPE_CURRENT_WEATHER) ||
@@ -310,23 +314,6 @@ module ComplicationUtils {
 			: Lang.format(valLabelStr, [label, value]);
 
 		return formatted;
-
-		// switch (location) {
-		// 	case ComplicationLocation.LOC_TOP:
-		// 		_topComplicationText = formatted;
-		// 		break;
-		// 	case ComplicationLocation.LOC_BOTTOM:
-		// 		_bottomComplicationText = formatted;
-		// 		break;
-		// 	case ComplicationLocation.LOC_RIGHT:
-		// 		_rightComplicationText = formatted;
-		// 		break;
-		// 	case ComplicationLocation.LOC_LEFT:
-		// 		_leftComplicationText = formatted;
-		// 		break;
-		// 	default:
-		// 		break;
-		// }
 	}
 
 	function getComplicationValue(complicationId as Complications.Id) as Number {
@@ -341,6 +328,56 @@ module ComplicationUtils {
 		} catch (e) {
 			Utils.log("Error in onComplication Changed: " + e);
 			return 0;
+		}
+	}
+
+	function getComplicationPercentage(complicationId as Complications.Id) as Float {
+		try {
+			var data = Complications.getComplication(complicationId);
+			var percentage = 0.0;
+
+			if (data.value != null) {
+				percentage = data.value as RangeValue;
+			}
+
+			// TODO: ability to set custom goals
+			switch (complicationId.getType()) {
+				case Complications.COMPLICATION_TYPE_RECOVERY_TIME:
+					percentage /= 5760.0; // Max val in minutes
+					percentage *= 100;
+					break;
+				case Complications.COMPLICATION_TYPE_FLOORS_CLIMBED:
+					var goal = ActivityMonitor.getInfo().floorsClimbedGoal;
+					if (goal == null) {
+						goal = 10; // default goal if not set
+					}
+					percentage /= goal;
+					percentage *= 100;
+					break;
+				case Complications.COMPLICATION_TYPE_STEPS:
+					var stepGoal = ActivityMonitor.getInfo().stepGoal;
+					if (stepGoal == null) {
+						stepGoal = 10000; // default goal if not set
+					}
+					percentage /= stepGoal;
+					percentage *= 100;
+					break;
+				case Complications.COMPLICATION_TYPE_INTENSITY_MINUTES:
+					var activeMinutesGoal = ActivityMonitor.getInfo().activeMinutesWeekGoal;
+					if (activeMinutesGoal == null) {
+						activeMinutesGoal = 500; // default goal if not set
+					}
+					percentage /= activeMinutesGoal;
+					percentage *= 100;
+					break;
+				default:
+					break;
+			}
+
+			return percentage.toFloat();
+		} catch (e) {
+			Utils.log("Error in onComplication Changed: " + e);
+			return 0.0;
 		}
 	}
 

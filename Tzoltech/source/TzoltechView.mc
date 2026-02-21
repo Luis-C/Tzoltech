@@ -26,6 +26,8 @@ class TzoltechView extends WatchUi.WatchFace {
 	// LAYOUT
 	private var _padding as Number = 14;
 	private var _vectorFontSize as Number = 34;
+	// private var _padding as Number = 8;
+	// private var _vectorFontSize as Number = 21;
 
 	private const _DEFAULT_TOP_COMPLICATION = Complications.COMPLICATION_TYPE_DATE;
 	private const _DEFAULT_CENTER_COMPLICATION = Complications.COMPLICATION_TYPE_TRAINING_STATUS;
@@ -60,38 +62,28 @@ class TzoltechView extends WatchUi.WatchFace {
 			var slotLocation = slotLocations[i] as ComplicationLocation.Value;
 			var compId = _complicationAssignments.get(slotLocation);
 			if (compId != null && compId.equals(complicationId)) {
-				var formatted = ComplicationUtils.getFormattedCompStr(complicationId, slotLocation);
+				var formatted = ComplicationUtils.getFormattedCompStr(complicationId, false);
 				_updateComplicationText(formatted, slotLocation);
 
 				// Special cases:
 				if (slotLocation.equals(ComplicationLocation.LOC_R1)) {
-					var value = ComplicationUtils.getComplicationValue(complicationId);
+					var value = ComplicationUtils.getComplicationPercentage(complicationId);
 					// var label = ComplicationUtils.getComplicationLabel(complicationId);
 					var icon = ComplicationUtils.getComplicationIcon(complicationId.getType());
 
-					if (icon != null) {
-						_ringsDrawable.setIcon(1, icon);
-					}
-
-					_ringsDrawable.setPercentage(1, value);
+					_ringsDrawable.setIcon(1, icon).setPercentage(1, value);
 				} else if (slotLocation.equals(ComplicationLocation.LOC_R2)) {
-					var value = ComplicationUtils.getComplicationValue(complicationId);
+					var value = ComplicationUtils.getComplicationPercentage(complicationId);
 					// var label = ComplicationUtils.getComplicationLabel(complicationId);
 					var icon = ComplicationUtils.getComplicationIcon(complicationId.getType());
 
-					if (icon != null) {
-						_ringsDrawable.setIcon(2, icon);
-					}
-					_ringsDrawable.setPercentage(2, value);
+					_ringsDrawable.setIcon(2, icon).setPercentage(2, value);
 				} else if (slotLocation.equals(ComplicationLocation.LOC_R3)) {
-					var value = ComplicationUtils.getComplicationValue(complicationId);
+					var value = ComplicationUtils.getComplicationPercentage(complicationId);
 					// var label = ComplicationUtils.getComplicationLabel(complicationId);
 					var icon = ComplicationUtils.getComplicationIcon(complicationId.getType());
 
-					if (icon != null) {
-						_ringsDrawable.setIcon(3, icon);
-					}
-					_ringsDrawable.setPercentage(3, value);
+					_ringsDrawable.setIcon(3, icon).setPercentage(3, value);
 				}
 			}
 		}
@@ -166,14 +158,7 @@ class TzoltechView extends WatchUi.WatchFace {
 	// Load your resources here
 	function onLayout(dc as Dc) as Void {
 		dc.setAntiAlias(true);
-		setLayout([
-			_ringsDrawable,
-			_bgGradient,
-			_timeDrawable,
-			_complicationTop,
-			_complicationCenter,
-			_complicationBottom,
-		]);
+
 		var fontRegular = WatchUi.loadResource($.Rez.Fonts.tzoltechLarge) as FontResource;
 
 		var dcHeight = dc.getHeight();
@@ -221,6 +206,16 @@ class TzoltechView extends WatchUi.WatchFace {
 		_complicationCenter.setLoc(centerX, centerY + clockTextDimensions[1] / 2);
 		_complicationTop.setLoc(centerX, centerY - (clockTextDimensions[1] / 2 + compTextHeight));
 		_complicationBottom.setLoc(centerX, centerY + clockTextDimensions[1] / 2 + compTextHeight);
+
+		// testing layout at end
+		setLayout([
+			_ringsDrawable,
+			_bgGradient,
+			_timeDrawable,
+			_complicationTop,
+			_complicationCenter,
+			_complicationBottom,
+		]);
 	}
 
 	private function _initializeStorage() as Void {
@@ -253,7 +248,7 @@ class TzoltechView extends WatchUi.WatchFace {
 			for (var i = 0; i < slotLocations.size(); i++) {
 				var slotLocation = slotLocations[i] as ComplicationLocation.Value;
 				var complicationId = _complicationAssignments.get(slotLocation) as Complications.Id;
-				var formatted = ComplicationUtils.getFormattedCompStr(complicationId, slotLocation);
+				var formatted = ComplicationUtils.getFormattedCompStr(complicationId, false);
 				_updateComplicationText(formatted, slotLocation);
 			}
 			_settingsChanged = false;

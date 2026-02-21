@@ -1,1 +1,5 @@
 project.manifest = manifest.xml
+
+base.sourcePath = source
+
+enduro3.resourcePath = $(base.resourcePath);resources-round-280x280

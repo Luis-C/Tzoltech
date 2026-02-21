@@ -91,6 +91,13 @@ class TimeDrawable extends WatchUi.Drawable {
 		var textWidth = textDimensions[0];
 		var textHeight = textDimensions[1];
 
+		// System.println(
+		// 	Lang.format(
+		// 		"Drawing time: $1$:$2$ at location ($3$, $4$) with text dimensions ($5$, $6$)",
+		// 		[timeStrings[0], timeStrings[1], _locX, _locY, textWidth, textHeight]
+		// 	)
+		// );
+
 		// _locX,
 		// _locY - textHeight - _padding,
 

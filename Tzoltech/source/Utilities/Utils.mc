@@ -87,7 +87,7 @@ module Utils {
 
 	function drawGradientCircle(
 		dc as Dc,
-		x1 as Number,
+		// x1 as Number,
 		yStart as Number,
 		// w as Number,
 		// x2 as Number,
@@ -103,7 +103,8 @@ module Utils {
 		var r, g, b;
 
 		// System.println(Lang.format("Drawing circles from: yStart=$1$ yEnd=$2$", [yStart, yEnd]));
-
+		var centerX = dc.getWidth() / 2;
+		var centerY = dc.getHeight() / 2;
 		for (var i = yStart; i < yEnd; i += 1) {
 			r = mapRange(i, yStart, yEnd, r1, r2);
 			g = mapRange(i, yStart, yEnd, g1, g2);
@@ -116,7 +117,8 @@ module Utils {
 			dc.setColor(Graphics.createColor(a, r, g, b), Graphics.COLOR_TRANSPARENT);
 
 			dc.setPenWidth(1);
-			dc.drawCircle(227, 227, i);
+
+			dc.drawCircle(centerX, centerY, i);
 		}
 	}
 }

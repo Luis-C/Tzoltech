@@ -12,5 +12,5 @@
     <bitmap id="stress" filename="../icons/22_STRESS.svg" scaleX="8%" scaleY="8%" scaleRelativeTo ="screen" packingFormat="png" automaticPalette="false" compress="true" dithering="none"/>
     <bitmap id="body" filename="../icons/23_BODY.svg" scaleX="8%" scaleY="8%" scaleRelativeTo ="screen" packingFormat="png" automaticPalette="false" compress="true" dithering="none"/>
     <bitmap id="pulseOx" filename="../icons/35_PULSE_OX.svg" scaleX="8%" scaleY="8%" scaleRelativeTo ="screen" packingFormat="png" automaticPalette="false" compress="true" dithering="none"/>
-
+    <bitmap id="recovery" filename="../icons/21_RECOVERY.svg" scaleX="8%" scaleY="8%" scaleRelativeTo ="screen" packingFormat="png" automaticPalette="false" compress="true" dithering="none"/>
 </drawables>
