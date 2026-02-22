@@ -33,6 +33,9 @@ module ComplicationUtils {
 
 	var _complicationIcons as Dictionary = {
 		Complications.COMPLICATION_TYPE_BATTERY => Rez.Drawables.battery,
+		Complications.COMPLICATION_TYPE_STEPS => Rez.Drawables.steps,
+		Complications.COMPLICATION_TYPE_FLOORS_CLIMBED => Rez.Drawables.floors,
+		Complications.COMPLICATION_TYPE_INTENSITY_MINUTES => Rez.Drawables.intensity,
 		Complications.COMPLICATION_TYPE_SOLAR_INPUT => Rez.Drawables.solar,
 		Complications.COMPLICATION_TYPE_STRESS => Rez.Drawables.stress,
 		Complications.COMPLICATION_TYPE_BODY_BATTERY => Rez.Drawables.body,
@@ -351,24 +354,22 @@ module ComplicationUtils {
 					if (goal == null) {
 						goal = 10; // default goal if not set
 					}
-					percentage /= goal;
-					percentage *= 100;
+
+					percentage = (percentage.toFloat() / goal) * 100.0;
 					break;
 				case Complications.COMPLICATION_TYPE_STEPS:
 					var stepGoal = ActivityMonitor.getInfo().stepGoal;
 					if (stepGoal == null) {
 						stepGoal = 10000; // default goal if not set
 					}
-					percentage /= stepGoal;
-					percentage *= 100;
+					percentage = (percentage.toFloat() / stepGoal) * 100.0;
 					break;
 				case Complications.COMPLICATION_TYPE_INTENSITY_MINUTES:
 					var activeMinutesGoal = ActivityMonitor.getInfo().activeMinutesWeekGoal;
 					if (activeMinutesGoal == null) {
 						activeMinutesGoal = 500; // default goal if not set
 					}
-					percentage /= activeMinutesGoal;
-					percentage *= 100;
+					percentage = (percentage.toFloat() / activeMinutesGoal) * 100.0;
 					break;
 				default:
 					break;

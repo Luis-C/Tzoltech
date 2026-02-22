@@ -17,11 +17,7 @@ class TzoltechView extends WatchUi.WatchFace {
 		Graphics.COLOR_YELLOW,
 		{}
 	);
-	private var _ringsDrawable as RingDrawable = new RingDrawable(
-		Graphics.COLOR_RED,
-		Graphics.COLOR_YELLOW,
-		{}
-	);
+	private var _ringsDrawable as RingsDrawable?;
 
 	// LAYOUT
 	private var _padding as Number = 14;
@@ -65,25 +61,24 @@ class TzoltechView extends WatchUi.WatchFace {
 				var formatted = ComplicationUtils.getFormattedCompStr(complicationId, false);
 				_updateComplicationText(formatted, slotLocation);
 
-				// Special cases:
-				if (slotLocation.equals(ComplicationLocation.LOC_R1)) {
-					var value = ComplicationUtils.getComplicationPercentage(complicationId);
-					// var label = ComplicationUtils.getComplicationLabel(complicationId);
-					var icon = ComplicationUtils.getComplicationIcon(complicationId.getType());
-
-					_ringsDrawable.setIcon(1, icon).setPercentage(1, value);
-				} else if (slotLocation.equals(ComplicationLocation.LOC_R2)) {
-					var value = ComplicationUtils.getComplicationPercentage(complicationId);
-					// var label = ComplicationUtils.getComplicationLabel(complicationId);
-					var icon = ComplicationUtils.getComplicationIcon(complicationId.getType());
-
-					_ringsDrawable.setIcon(2, icon).setPercentage(2, value);
-				} else if (slotLocation.equals(ComplicationLocation.LOC_R3)) {
-					var value = ComplicationUtils.getComplicationPercentage(complicationId);
-					// var label = ComplicationUtils.getComplicationLabel(complicationId);
-					var icon = ComplicationUtils.getComplicationIcon(complicationId.getType());
-
-					_ringsDrawable.setIcon(3, icon).setPercentage(3, value);
+				if (_ringsDrawable instanceof RingsDrawable) {
+					// Special cases:
+					if (slotLocation.equals(ComplicationLocation.LOC_R1)) {
+						var value = ComplicationUtils.getComplicationPercentage(complicationId);
+						// var label = ComplicationUtils.getComplicationLabel(complicationId);
+						var icon = ComplicationUtils.getComplicationIcon(complicationId.getType());
+						(_ringsDrawable as RingsDrawable).setIcon(1, icon).setPercentage(1, value);
+					} else if (slotLocation.equals(ComplicationLocation.LOC_R2)) {
+						var value = ComplicationUtils.getComplicationPercentage(complicationId);
+						// var label = ComplicationUtils.getComplicationLabel(complicationId);
+						var icon = ComplicationUtils.getComplicationIcon(complicationId.getType());
+						(_ringsDrawable as RingsDrawable).setIcon(2, icon).setPercentage(2, value);
+					} else if (slotLocation.equals(ComplicationLocation.LOC_R3)) {
+						var value = ComplicationUtils.getComplicationPercentage(complicationId);
+						// var label = ComplicationUtils.getComplicationLabel(complicationId);
+						var icon = ComplicationUtils.getComplicationIcon(complicationId.getType());
+						(_ringsDrawable as RingsDrawable).setIcon(3, icon).setPercentage(3, value);
+					}
 				}
 			}
 		}
@@ -158,29 +153,47 @@ class TzoltechView extends WatchUi.WatchFace {
 	// Load your resources here
 	function onLayout(dc as Dc) as Void {
 		dc.setAntiAlias(true);
+		var dcHeight = dc.getHeight();
+		var dcWidth = dc.getWidth();
+
+		var scaleFactor = dcWidth / 454.0;
+
+		_ringsDrawable = new RingsDrawable(
+			Graphics.COLOR_RED,
+			Graphics.COLOR_YELLOW,
+			dcWidth,
+			dcHeight,
+			{}
+		);
+
+		setLayout([
+			_ringsDrawable,
+			_bgGradient,
+			_timeDrawable,
+			_complicationTop,
+			_complicationCenter,
+			_complicationBottom,
+		]);
 
 		var fontRegular = WatchUi.loadResource($.Rez.Fonts.tzoltechLarge) as FontResource;
 
-		var dcHeight = dc.getHeight();
-		var dcWidth = dc.getWidth();
 		var centerX = dcWidth / 2;
 		var centerY = dcHeight / 2;
-
 		_timeDrawable
 			.setFont(fontRegular)
 			.setFontMinutes(fontRegular)
 			.setLoc(centerX, centerY)
-			.setPadding(_padding);
+			.setPadding((_padding * scaleFactor).toNumber());
 
 		var clockTextDimensions = dc.getTextDimensions("1", fontRegular);
 
 		_bgGradient
 			.setCharacterDimensions(clockTextDimensions[0], clockTextDimensions[1])
 			.setLoc(centerX, centerY)
-			.setPadding(_padding);
+			.setPadding((_padding * scaleFactor).toNumber());
 
 		var compString = "--";
-		var vectorFont = _getVectorFont(_vectorFontSize);
+		var vectorFont = _getVectorFont((_vectorFontSize * scaleFactor).toNumber());
 		var textDimensions = dc.getTextDimensions(compString, Graphics.FONT_XTINY);
 		var fontDescent = Graphics.getFontDescent(Graphics.FONT_XTINY);
 
@@ -206,16 +219,6 @@ class TzoltechView extends WatchUi.WatchFace {
 		_complicationCenter.setLoc(centerX, centerY + clockTextDimensions[1] / 2);
 		_complicationTop.setLoc(centerX, centerY - (clockTextDimensions[1] / 2 + compTextHeight));
 		_complicationBottom.setLoc(centerX, centerY + clockTextDimensions[1] / 2 + compTextHeight);
-
-		// testing layout at end
-		setLayout([
-			_ringsDrawable,
-			_bgGradient,
-			_timeDrawable,
-			_complicationTop,
-			_complicationCenter,
-			_complicationBottom,
-		]);
 	}
 
 	private function _initializeStorage() as Void {
@@ -265,7 +268,10 @@ class TzoltechView extends WatchUi.WatchFace {
 			dataColorToUse = storedDataColor;
 			// _indicatorRight.setHues(null, dataColorToUse);
 			// _indicatorLeft.setHues(null, dataColorToUse);
-			_ringsDrawable.setHues(null, dataColorToUse);
+
+			if (_ringsDrawable instanceof RingsDrawable) {
+				_ringsDrawable.setHues(null, dataColorToUse);
+			}
 			_bgGradient.setHues(null, dataColorToUse);
 		}
 
@@ -273,7 +279,9 @@ class TzoltechView extends WatchUi.WatchFace {
 			accentColorToUse = storedAccentColor;
 			// _indicatorRight.setHues(accentColorToUse, null);
 			// _indicatorLeft.setHues(accentColorToUse, null);
-			_ringsDrawable.setHues(accentColorToUse, null);
+			if (_ringsDrawable instanceof RingsDrawable) {
+				_ringsDrawable.setHues(accentColorToUse, null);
+			}
 			_bgGradient.setHues(accentColorToUse, null);
 		}
 	}

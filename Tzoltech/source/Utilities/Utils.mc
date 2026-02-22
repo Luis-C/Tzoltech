@@ -105,6 +105,8 @@ module Utils {
 		// System.println(Lang.format("Drawing circles from: yStart=$1$ yEnd=$2$", [yStart, yEnd]));
 		var centerX = dc.getWidth() / 2;
 		var centerY = dc.getHeight() / 2;
+		dc.setPenWidth(1);
+
 		for (var i = yStart; i < yEnd; i += 1) {
 			r = mapRange(i, yStart, yEnd, r1, r2);
 			g = mapRange(i, yStart, yEnd, g1, g2);
@@ -115,8 +117,6 @@ module Utils {
 			// 	Lang.format("Drawing circle with color: a=$1$ r=$2$ g=$3$ b=$4$", [a, r, g, b])
 			// );
 			dc.setColor(Graphics.createColor(a, r, g, b), Graphics.COLOR_TRANSPARENT);
-
-			dc.setPenWidth(1);
 
 			dc.drawCircle(centerX, centerY, i);
 		}

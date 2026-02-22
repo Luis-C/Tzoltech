@@ -85,7 +85,7 @@ class TimeDrawable extends WatchUi.Drawable {
 		var timeStrings = _getTimeStrings();
 
 		dc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_BLACK);
-		// dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_BLACK); // debugging
+		// dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT); // debugging
 
 		var textDimensions = dc.getTextDimensions(timeStrings[0], _font);
 		var textWidth = textDimensions[0];
