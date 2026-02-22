@@ -1,14 +1,14 @@
-info face="TournTech" size=62 bold=1 italic=0 charset="" unicode=1 stretchH=62 smooth=0 aa=1 padding=1,1,1,1 spacing=0,0 outline=0
-common lineHeight=62 base=62 scaleW=186 scaleH=124 pages=1 packed=0 alphaChnl=1 redChnl=0 greenChnl=0 blueChnl=0
+info face="TournTech" size=70 bold=1 italic=0 charset="" unicode=1 stretchH=70 smooth=0 aa=1 padding=1,1,1,1 spacing=0,0 outline=0
+common lineHeight=70 base=70 scaleW=210 scaleH=140 pages=1 packed=0 alphaChnl=1 redChnl=0 greenChnl=0 blueChnl=0
 page id=0 file="TzoltechFontLarge.png"
 chars count=10
-char id=48   x=0      y=0    width=37    height=62   xoffset=0   yoffset=0   xadvance=37   page=0  chnl=15
-char id=49   x=37     y=0    width=37    height=62   xoffset=0   yoffset=0   xadvance=37   page=0  chnl=15
-char id=50   x=74     y=0    width=37    height=62   xoffset=0   yoffset=0   xadvance=37   page=0  chnl=15
-char id=51   x=111    y=0    width=37    height=62   xoffset=0   yoffset=0   xadvance=37   page=0  chnl=15
-char id=52   x=148    y=0    width=37    height=62   xoffset=0   yoffset=0   xadvance=37   page=0  chnl=15
-char id=53   x=0      y=62   width=37    height=62   xoffset=0   yoffset=0   xadvance=37   page=0  chnl=15
-char id=54   x=37     y=62   width=37    height=62   xoffset=0   yoffset=0   xadvance=37   page=0  chnl=15
-char id=55   x=74     y=62   width=37    height=62   xoffset=0   yoffset=0   xadvance=37   page=0  chnl=15
-char id=56   x=111    y=62   width=37    height=62   xoffset=0   yoffset=0   xadvance=37   page=0  chnl=15
-char id=57   x=148    y=62   width=37    height=62   xoffset=0   yoffset=0   xadvance=37   page=0  chnl=15
+char id=48   x=0      y=0    width=42    height=70   xoffset=0   yoffset=0   xadvance=42   page=0  chnl=15
+char id=49   x=42     y=0    width=42    height=70   xoffset=0   yoffset=0   xadvance=42   page=0  chnl=15
+char id=50   x=84     y=0    width=42    height=70   xoffset=0   yoffset=0   xadvance=42   page=0  chnl=15
+char id=51   x=126    y=0    width=42    height=70   xoffset=0   yoffset=0   xadvance=42   page=0  chnl=15
+char id=52   x=168    y=0    width=42    height=70   xoffset=0   yoffset=0   xadvance=42   page=0  chnl=15
+char id=53   x=0      y=70   width=42    height=70   xoffset=0   yoffset=0   xadvance=42   page=0  chnl=15
+char id=54   x=42     y=70   width=42    height=70   xoffset=0   yoffset=0   xadvance=42   page=0  chnl=15
+char id=55   x=84     y=70   width=42    height=70   xoffset=0   yoffset=0   xadvance=42   page=0  chnl=15
+char id=56   x=126    y=70   width=42    height=70   xoffset=0   yoffset=0   xadvance=42   page=0  chnl=15
+char id=57   x=168    y=70   width=42    height=70   xoffset=0   yoffset=0   xadvance=42   page=0  chnl=15
