@@ -96,9 +96,9 @@ class ColorPicker extends WatchUi.Picker {
 	private var _name as String;
 	private const N_FACTORIES = 3;
 
-	private const R_RANGE = 3;
-	private const G_RANGE = 3;
-	private const B_RANGE = 3;
+	private var R_RANGE as Number = 10;
+	private var G_RANGE as Number = 20;
+	private var B_RANGE as Number = 10;
 
 	// (:regularVersion)
 	// private const R_RANGE = 31;
@@ -120,6 +120,15 @@ class ColorPicker extends WatchUi.Picker {
 		var pickedColor = storedColor != null ? storedColor : Graphics.COLOR_LT_GRAY;
 		var previewColor = new $.ColorModel();
 		previewColor.setColor(pickedColor);
+
+		// We assume that if the device does not need burn-in protection, it also has a low color depth (e.g. 8-bit),
+		// so we limit the range of colors to choose from.
+		// This is not a perfect assumption, but it is a reasonable one given the constraints of Connect IQ development.
+		if (!System.getDeviceSettings().requiresBurnInProtection) {
+			R_RANGE = 3;
+			G_RANGE = 3;
+			B_RANGE = 3;
+		}
 
 		var factories = new Array<PickerFactory>[N_FACTORIES];
 		factories[0] = new $.ColorFactory(0, R_RANGE, 1, "red", previewColor);

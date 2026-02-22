@@ -98,13 +98,13 @@ class ColorFactory extends WatchUi.PickerFactory {
 	private var _channel as String;
 	private var _currColor as ColorModel;
 
-	private const R_UNIT = 0x55;
-	private const G_UNIT = 0x55;
-	private const B_UNIT = 0x55;
+	private var R_UNIT as Number = 0x55;
+	private var G_UNIT as Number = 0x55;
+	private var B_UNIT as Number = 0x55;
 
-	private const R_D = 85;
-	private const G_D = 85;
-	private const B_D = 85;
+	private var R_D as Number = 85;
+	private var G_D as Number = 85;
+	private var B_D as Number = 85;
 
 	// (:regularVersion)
 	// private const R_UNIT = 0x8;
@@ -155,6 +155,14 @@ class ColorFactory extends WatchUi.PickerFactory {
 		_increment = increment;
 		_channel = channel;
 		_currColor = currColor;
+
+		R_UNIT = 0xff / ((_stop - _start) / _increment);
+		G_UNIT = 0xff / ((_stop - _start) / _increment);
+		B_UNIT = 0xff / ((_stop - _start) / _increment);
+
+		R_D = R_UNIT;
+		G_D = G_UNIT;
+		B_D = B_UNIT;
 	}
 
 	//! Get the index of a color item

@@ -118,11 +118,31 @@ class RingsDrawable extends WatchUi.Drawable {
 		return self;
 	}
 
+	// TODO: use reusable function
+	// function _drawRing(dc as Dc, centerX as Number, centerY as Number, radius as Number, width as Number, percentage as Number) as Void {
+	// 	var angle = -percentage * 3.6; // Convert percentage to degrees (360 degrees in a circle)
+	// 	var color = Graphics.COLOR_DK_GRAY;
+
+	// 	dc.setPenWidth(width);
+	// 	dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+
+	// 	if (angle > -359) {
+	// 		dc.drawArc(
+	// 			centerX,
+	// 			centerY,
+	// 			radius - width / 2,
+	// 			Graphics.ARC_COUNTER_CLOCKWISE,
+	// 			90,
+	// 			angle + 90
+	// 		);
+	// 	}
+	// }
+
 	function draw(dc) {
 		var bufferedBitmap = _bufferedBitmapRef.get();
 
 		if (bufferedBitmap == null || !(bufferedBitmap instanceof BufferedBitmap)) {
-			System.println("Error: Buffered bitmap is not available.");
+			Utils.log("Error: Buffered bitmap is not available.");
 			return;
 		}
 

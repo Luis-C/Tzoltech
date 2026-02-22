@@ -22,8 +22,6 @@ class TzoltechView extends WatchUi.WatchFace {
 	// LAYOUT
 	private var _padding as Number = 14;
 	private var _vectorFontSize as Number = 34;
-	// private var _padding as Number = 8;
-	// private var _vectorFontSize as Number = 21;
 
 	private const _DEFAULT_TOP_COMPLICATION = Complications.COMPLICATION_TYPE_DATE;
 	private const _DEFAULT_CENTER_COMPLICATION = Complications.COMPLICATION_TYPE_TRAINING_STATUS;
@@ -195,7 +193,7 @@ class TzoltechView extends WatchUi.WatchFace {
 		var compString = "--";
 		var vectorFont = _getVectorFont((_vectorFontSize * scaleFactor).toNumber());
 		var textDimensions = dc.getTextDimensions(compString, Graphics.FONT_XTINY);
-		var fontDescent = Graphics.getFontDescent(Graphics.FONT_XTINY);
+		// var fontDescent = Graphics.getFontDescent(Graphics.FONT_XTINY);
 
 		if (vectorFont != null) {
 			_complicationTop.setFont(vectorFont);
@@ -206,7 +204,7 @@ class TzoltechView extends WatchUi.WatchFace {
 			// _indicatorRight.setFont(vectorFont);
 
 			textDimensions = dc.getTextDimensions(compString, vectorFont);
-			fontDescent = Graphics.getFontDescent(vectorFont);
+			// fontDescent = Graphics.getFontDescent(vectorFont);
 		}
 
 		var compTextHeight = textDimensions[1];
@@ -219,6 +217,20 @@ class TzoltechView extends WatchUi.WatchFace {
 		_complicationCenter.setLoc(centerX, centerY + clockTextDimensions[1] / 2);
 		_complicationTop.setLoc(centerX, centerY - (clockTextDimensions[1] / 2 + compTextHeight));
 		_complicationBottom.setLoc(centerX, centerY + clockTextDimensions[1] / 2 + compTextHeight);
+
+		if (_settingsChanged) {
+			_loadComplications();
+			var slotLocations = _complicationAssignments.keys();
+			for (var i = 0; i < slotLocations.size(); i++) {
+				var slotLocation = slotLocations[i] as ComplicationLocation.Value;
+				var complicationId = _complicationAssignments.get(slotLocation) as Complications.Id;
+				var formatted = ComplicationUtils.getFormattedCompStr(complicationId, false);
+				_updateComplicationText(formatted, slotLocation);
+			}
+			_settingsChanged = false;
+		} else {
+			_subscribeToComplications();
+		}
 	}
 
 	private function _initializeStorage() as Void {
@@ -241,8 +253,6 @@ class TzoltechView extends WatchUi.WatchFace {
 	private function _setComplicationVisibility() as Void {
 		var flags = Storage.getValue(StorageKeys.KEY_VISIBILITY_FLAGS) as Number;
 
-		// _indicatorLeft.setVisible((flags & VisibilityFlags.FLAG_LEFT) != 0);
-		// _indicatorRight.setVisible((flags & VisibilityFlags.FLAG_RIGHT) != 0);
 		_complicationTop.setVisible((flags & VisibilityFlags.FLAG_TOP) != 0);
 		_complicationCenter.setVisible((flags & VisibilityFlags.FLAG_CENTER) != 0);
 		_complicationBottom.setVisible((flags & VisibilityFlags.FLAG_BOTTOM) != 0);
@@ -287,8 +297,6 @@ class TzoltechView extends WatchUi.WatchFace {
 
 		if (storedAccentColor instanceof Number) {
 			accentColorToUse = storedAccentColor;
-			// _indicatorRight.setHues(accentColorToUse, null);
-			// _indicatorLeft.setHues(accentColorToUse, null);
 			if (_ringsDrawable instanceof RingsDrawable) {
 				_ringsDrawable.setHues(accentColorToUse, null);
 			}
