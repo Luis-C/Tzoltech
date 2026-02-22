@@ -161,13 +161,13 @@ class RingsDrawable extends WatchUi.Drawable {
 
 		var scaleFactor = bufferedDc.getWidth() / 454.0; // Assuming original design is for 454px width
 
-		var hRingWidth = 26 * scaleFactor;
-		var mRingWidth = 16 * scaleFactor;
-		var sRingWidth = 16 * scaleFactor;
+		var hRingWidth = 27 * scaleFactor;
+		var mRingWidth = 17 * scaleFactor;
+		var sRingWidth = 17 * scaleFactor;
 
 		// where to draw the ring (accounting for the width)
-		var hRingR = 214 * scaleFactor;
-		var mRingR = 194 * scaleFactor;
+		var hRingR = 215 * scaleFactor;
+		var mRingR = 195 * scaleFactor;
 		var sRingR = 178 * scaleFactor;
 
 		if (isHighPowerMode || !requiresBurnInProtection) {

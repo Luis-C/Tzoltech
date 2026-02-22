@@ -8,6 +8,7 @@ class SettingsMenu extends WatchUi.Menu2 {
 	public function initialize() {
 		Menu2.initialize({ :title => "Settings" });
 
+		// TOP COLOR
 		var currColorHex =
 			Storage.getValue(StorageKeys.KEY_ACCENT_COLOR_LABEL) instanceof String
 				? Storage.getValue(StorageKeys.KEY_ACCENT_COLOR_LABEL)
@@ -30,6 +31,7 @@ class SettingsMenu extends WatchUi.Menu2 {
 			)
 		);
 
+		// BOTTOM COLOR
 		currColorHex =
 			Storage.getValue(StorageKeys.KEY_DATA_COLOR_LABEL) instanceof String
 				? Storage.getValue(StorageKeys.KEY_DATA_COLOR_LABEL)
@@ -50,7 +52,8 @@ class SettingsMenu extends WatchUi.Menu2 {
 				}
 			)
 		);
-		// }
+
+		self.addItem(new WatchUi.MenuItem($.Rez.Strings.swapColors, null, "SWAP_COLORS", null));
 
 		// if (!Utils.requiresBurnInProtection()) {
 		// 	var boolean = Storage.getValue(StorageKeys.KEY_WHITE_BKG) ? true : false;
@@ -64,7 +67,6 @@ class SettingsMenu extends WatchUi.Menu2 {
 		// 		)
 		// 	);
 		// }
-
 		var flags = Storage.getValue(StorageKeys.KEY_VISIBILITY_FLAGS) as Number;
 
 		var boolean = (flags & VisibilityFlags.FLAG_TOP) != 0;
@@ -85,6 +87,15 @@ class SettingsMenu extends WatchUi.Menu2 {
 				// }
 			)
 		);
+		self.addItem(
+			new WatchUi.MenuItem(
+				$.Rez.Strings.topComplication,
+				null,
+				ComplicationLocation.LOC_TOP,
+				null
+			)
+		);
+
 		boolean = (flags & VisibilityFlags.FLAG_CENTER) != 0;
 		self.addItem(
 			new WatchUi.ToggleMenuItem(
@@ -102,6 +113,15 @@ class SettingsMenu extends WatchUi.Menu2 {
 				// }
 			)
 		);
+		self.addItem(
+			new WatchUi.MenuItem(
+				$.Rez.Strings.centerComplication,
+				null,
+				ComplicationLocation.LOC_CENTER,
+				null
+			)
+		);
+
 		boolean = (flags & VisibilityFlags.FLAG_BOTTOM) != 0;
 		self.addItem(
 			new WatchUi.ToggleMenuItem(
@@ -119,6 +139,15 @@ class SettingsMenu extends WatchUi.Menu2 {
 				// }
 			)
 		);
+		self.addItem(
+			new WatchUi.MenuItem(
+				$.Rez.Strings.bottomComplication,
+				null,
+				ComplicationLocation.LOC_BOTTOM,
+				null
+			)
+		);
+
 		boolean = (flags & VisibilityFlags.FLAG_R1) != 0;
 		self.addItem(
 			new WatchUi.ToggleMenuItem(
@@ -136,7 +165,9 @@ class SettingsMenu extends WatchUi.Menu2 {
 				// }
 			)
 		);
-
+		self.addItem(
+			new WatchUi.MenuItem($.Rez.Strings.ringOne, null, ComplicationLocation.LOC_R1, null)
+		);
 		boolean = (flags & VisibilityFlags.FLAG_R2) != 0;
 		self.addItem(
 			new WatchUi.ToggleMenuItem(
@@ -153,6 +184,9 @@ class SettingsMenu extends WatchUi.Menu2 {
 				// 	:icon => $.Rez.Drawables.heart,
 				// }
 			)
+		);
+		self.addItem(
+			new WatchUi.MenuItem($.Rez.Strings.ringTwo, null, ComplicationLocation.LOC_R2, null)
 		);
 
 		boolean = (flags & VisibilityFlags.FLAG_R3) != 0;
@@ -172,82 +206,12 @@ class SettingsMenu extends WatchUi.Menu2 {
 				// }
 			)
 		);
-
-		// if (Toybox.Graphics.Dc has :drawRadialText || Toybox.Graphics.Dc has :drawAngledText) {
-		// 	boolean = Storage.getValue(StorageKeys.KEY_RIGHT_VIS) ? true : false;
-		// 	self.addItem(
-		// 		new WatchUi.ToggleMenuItem(
-		// 			$.Rez.Strings.rightComplication,
-		// 			{
-		// 				:enabled => $.Rez.Strings.complicationVisible,
-		// 				:disabled => $.Rez.Strings.complicationHidden,
-		// 			},
-		// 			StorageKeys.KEY_RIGHT_VIS,
-		// 			boolean,
-		// 			null
-		// 			// {
-		// 			// 	:alignment => MenuItem.MENU_ITEM_LABEL_ALIGN_LEFT,
-		// 			// 	:icon => $.Rez.Drawables.heart,
-		// 			// }
-		// 		)
-		// 	);
-		// 	boolean = Storage.getValue(StorageKeys.KEY_LEFT_VIS) ? true : false;
-		// 	self.addItem(
-		// 		new WatchUi.ToggleMenuItem(
-		// 			$.Rez.Strings.leftComplication,
-		// 			{
-		// 				:enabled => $.Rez.Strings.complicationVisible,
-		// 				:disabled => $.Rez.Strings.complicationHidden,
-		// 			},
-		// 			StorageKeys.KEY_LEFT_VIS,
-		// 			boolean,
-		// 			null
-		// 			// {
-		// 			// 	:alignment => MenuItem.MENU_ITEM_LABEL_ALIGN_LEFT,
-		// 			// 	:icon => $.Rez.Drawables.heart,
-		// 			// }
-		// 		)
-		// 	);
-		// }
-
-		// Having both options causes conflicts
-		// if (!(Toybox.Application has :WatchFaceConfig)) {
-		self.addItem(
-			new WatchUi.MenuItem(
-				$.Rez.Strings.topComplication,
-				null,
-				ComplicationLocation.LOC_TOP,
-				null
-			)
-		);
-		self.addItem(
-			new WatchUi.MenuItem(
-				$.Rez.Strings.centerComplication,
-				null,
-				ComplicationLocation.LOC_CENTER,
-				null
-			)
-		);
-		self.addItem(
-			new WatchUi.MenuItem(
-				$.Rez.Strings.bottomComplication,
-				null,
-				ComplicationLocation.LOC_BOTTOM,
-				null
-			)
-		);
-
-		// If radial fonts are supported, show left/right complications
-		// if (Toybox.Graphics.Dc has :drawRadialText || Toybox.Graphics.Dc has :drawAngledText) {
-		self.addItem(
-			new WatchUi.MenuItem($.Rez.Strings.ringOne, null, ComplicationLocation.LOC_R1, null)
-		);
-		self.addItem(
-			new WatchUi.MenuItem($.Rez.Strings.ringTwo, null, ComplicationLocation.LOC_R2, null)
-		);
 		self.addItem(
 			new WatchUi.MenuItem($.Rez.Strings.ringThree, null, ComplicationLocation.LOC_R3, null)
 		);
+		// If radial fonts are supported, show left/right complications
+		// if (Toybox.Graphics.Dc has :drawRadialText || Toybox.Graphics.Dc has :drawAngledText) {
+
 		// }
 		// }
 	}

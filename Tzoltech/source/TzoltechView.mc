@@ -28,9 +28,9 @@ class TzoltechView extends WatchUi.WatchFace {
 	private const _DEFAULT_TOP_COMPLICATION = Complications.COMPLICATION_TYPE_DATE;
 	private const _DEFAULT_CENTER_COMPLICATION = Complications.COMPLICATION_TYPE_TRAINING_STATUS;
 	private const _DEFAULT_BOTTOM_COMPLICATION = Complications.COMPLICATION_TYPE_ALTITUDE;
-	private const _DEFAULT_RING_3 = Complications.COMPLICATION_TYPE_BATTERY;
+	private const _DEFAULT_RING_3 = Complications.COMPLICATION_TYPE_STRESS;
 	private const _DEFAULT_RING_2 = Complications.COMPLICATION_TYPE_BODY_BATTERY;
-	private const _DEFAULT_RING_1 = Complications.COMPLICATION_TYPE_STRESS;
+	private const _DEFAULT_RING_1 = Complications.COMPLICATION_TYPE_BATTERY;
 	private var _complicationAssignments as Dictionary<String, Complications.Id> = {
 		ComplicationLocation.LOC_TOP => new Complications.Id(_DEFAULT_TOP_COMPLICATION),
 		ComplicationLocation.LOC_CENTER => new Complications.Id(_DEFAULT_CENTER_COMPLICATION),
@@ -222,6 +222,16 @@ class TzoltechView extends WatchUi.WatchFace {
 	}
 
 	private function _initializeStorage() as Void {
+		if (Storage.getValue(StorageKeys.KEY_ACCENT_COLOR) == null) {
+			Storage.setValue(StorageKeys.KEY_ACCENT_COLOR, Graphics.COLOR_RED);
+			Storage.setValue(StorageKeys.KEY_ACCENT_COLOR_LABEL, "#FF0000");
+		}
+
+		if (Storage.getValue(StorageKeys.KEY_DATA_COLOR) == null) {
+			Storage.setValue(StorageKeys.KEY_DATA_COLOR, Graphics.COLOR_YELLOW);
+			Storage.setValue(StorageKeys.KEY_DATA_COLOR_LABEL, "#FFAA00");
+		}
+
 		// 0b111111 means all complications visible
 		if (Storage.getValue(StorageKeys.KEY_VISIBILITY_FLAGS) == null) {
 			Storage.setValue(StorageKeys.KEY_VISIBILITY_FLAGS, 63);

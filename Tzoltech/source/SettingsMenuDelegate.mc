@@ -21,8 +21,11 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
 			var flags = Storage.getValue(StorageKeys.KEY_VISIBILITY_FLAGS) as Number;
 			var flag = menuId as VisibilityFlags.Value;
 			var newFlags = menuItem.isEnabled() ? flags | flag : flags & ~flag;
-
 			Storage.setValue(StorageKeys.KEY_VISIBILITY_FLAGS, newFlags);
+
+			// NOTE: attempted dynamic menu item addition, however
+			// you can not select where to add a menu Item so they're added at
+			// the bottom. Which is not ideal.
 		} else if (menuId != null && menuId.equals(StorageKeys.KEY_ACCENT_COLOR)) {
 			WatchUi.pushView(
 				new $.ColorPicker(StorageKeys.KEY_ACCENT_COLOR),
@@ -102,6 +105,24 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
 			}
 
 			WatchUi.pushView(compMenu, new $.Menu2SampleSubMenuDelegate(menuId), WatchUi.SLIDE_UP);
+		} else if (menuId != null && menuId.equals("SWAP_COLORS")) {
+			var accentColor = Storage.getValue(StorageKeys.KEY_ACCENT_COLOR) as Number?;
+			var dataColor = Storage.getValue(StorageKeys.KEY_DATA_COLOR) as Number?;
+
+			if (accentColor != null && dataColor != null) {
+				Storage.setValue(StorageKeys.KEY_ACCENT_COLOR, dataColor);
+				Storage.setValue(StorageKeys.KEY_DATA_COLOR, accentColor);
+
+				var accentColorLabel =
+					Storage.getValue(StorageKeys.KEY_ACCENT_COLOR_LABEL) as String?;
+				var dataColorLabel = Storage.getValue(StorageKeys.KEY_DATA_COLOR_LABEL) as String?;
+
+				if (accentColorLabel != null && dataColorLabel != null) {
+					Storage.setValue(StorageKeys.KEY_ACCENT_COLOR_LABEL, dataColorLabel);
+					Storage.setValue(StorageKeys.KEY_DATA_COLOR_LABEL, accentColorLabel);
+				}
+			}
+			WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
 		} else {
 			Utils.log("Selected item with id: " + menuItem.getId());
 		}
