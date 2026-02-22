@@ -1,5 +1,5 @@
 <drawables xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
-    <bitmap id="LauncherIcon" filename="launcher_icon.svg" dithering="none" />
+    <bitmap id="LauncherIcon" filename="0_ICON.svg" scaleX="65" scaleY="65" dithering="none" />
     <bitmap id="RingOverlay" x="center" y="0" filename="../rings/TZOLTECH-RingOverlay.png" scaleX="100%" scaleY="100%" scaleRelativeTo ="screen" packingFormat="png">
        
     </bitmap>
