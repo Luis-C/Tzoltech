@@ -197,6 +197,11 @@ class RingsDrawable extends WatchUi.Drawable {
 				_firstHue[Utils.CHANNEL_G] as Number,
 				_firstHue[Utils.CHANNEL_B] as Number
 			);
+
+			// Adresses bug with create color returning 1 for some devices.
+			if (color == 1) {
+				color = Graphics.COLOR_WHITE;
+			}
 			bufferedDc.setColor(color, Graphics.COLOR_TRANSPARENT);
 			bufferedDc.setPenWidth(hRingWidth);
 			bufferedDc.drawCircle(centerX, centerY, hRingR);
@@ -226,6 +231,10 @@ class RingsDrawable extends WatchUi.Drawable {
 				_firstHue[Utils.CHANNEL_G] as Number,
 				_firstHue[Utils.CHANNEL_B] as Number
 			);
+			// Adresses bug with create color returning 1 for some devices.
+			if (color == 1) {
+				color = Graphics.COLOR_WHITE;
+			}
 			bufferedDc.setColor(color, Graphics.COLOR_TRANSPARENT);
 			bufferedDc.setPenWidth(hRingWidth);
 			bufferedDc.drawCircle(centerX, centerY, hRingR);
