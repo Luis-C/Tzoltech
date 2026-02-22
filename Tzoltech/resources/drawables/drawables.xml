@@ -1,16 +1,31 @@
 <drawables xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
     <bitmap id="LauncherIcon" filename="launcher_icon.svg" dithering="none" />
+    <bitmap id="RingOverlay" x="center" y="0" filename="../rings/TZOLTECH-RingOverlay.png" scaleX="100%" scaleY="100%" scaleRelativeTo ="screen" packingFormat="png">
+       
+    </bitmap>
     <bitmap id="OuterRing" x="center" y="0" filename="../rings/TZOLTECH-Ring1.png" scaleX="100%" scaleY="100%" scaleRelativeTo ="screen" packingFormat="png">
+        <palette>
+            <color>FFFFFF</color>
+        </palette>
     </bitmap>
     <bitmap id="MiddleRing" x="center" y="0" filename="../rings/TZOLTECH-Ring2.png" scaleX="100%" scaleY="100%" scaleRelativeTo ="screen" packingFormat="png">
+        <palette>
+            <color>FFFFFF</color>
+        </palette>
     </bitmap>
     <bitmap id="InnerRing" x="center" y="0" filename="../rings/TZOLTECH-Ring3.png" scaleX="100%" scaleY="100%" scaleRelativeTo ="screen" packingFormat="png">
+        <palette>
+            <color>FFFFFF</color>
+        </palette>
     </bitmap>
 
     <bitmap id="battery" filename="../icons/1_BATTERY.svg" scaleX="8%" scaleY="8%" scaleRelativeTo ="screen" packingFormat="png" automaticPalette="false" compress="true" dithering="none"/>
-    <bitmap id="solar" filename="../icons/37_SOLAR.svg" scaleX="8%" scaleY="8%" scaleRelativeTo ="screen" packingFormat="png" automaticPalette="false" compress="true" dithering="none"/>
+    <bitmap id="steps" filename="../icons/2_STEPS.svg" scaleX="8%" scaleY="8%" scaleRelativeTo ="screen" packingFormat="png" automaticPalette="false" compress="true" dithering="none"/>
+    <bitmap id="floors" filename="../icons/4_FLOORS.svg" scaleX="8%" scaleY="8%" scaleRelativeTo ="screen" packingFormat="png" automaticPalette="false" compress="true" dithering="none"/>
+    <bitmap id="intensity" filename="../icons/5_INTENSITY.svg" scaleX="8%" scaleY="8%" scaleRelativeTo ="screen" packingFormat="png" automaticPalette="false" compress="true" dithering="none"/>
+    <bitmap id="recovery" filename="../icons/21_RECOVERY.svg" scaleX="8%" scaleY="8%" scaleRelativeTo ="screen" packingFormat="png" automaticPalette="false" compress="true" dithering="none"/>
     <bitmap id="stress" filename="../icons/22_STRESS.svg" scaleX="8%" scaleY="8%" scaleRelativeTo ="screen" packingFormat="png" automaticPalette="false" compress="true" dithering="none"/>
     <bitmap id="body" filename="../icons/23_BODY.svg" scaleX="8%" scaleY="8%" scaleRelativeTo ="screen" packingFormat="png" automaticPalette="false" compress="true" dithering="none"/>
     <bitmap id="pulseOx" filename="../icons/35_PULSE_OX.svg" scaleX="8%" scaleY="8%" scaleRelativeTo ="screen" packingFormat="png" automaticPalette="false" compress="true" dithering="none"/>
-    <bitmap id="recovery" filename="../icons/21_RECOVERY.svg" scaleX="8%" scaleY="8%" scaleRelativeTo ="screen" packingFormat="png" automaticPalette="false" compress="true" dithering="none"/>
+    <bitmap id="solar" filename="../icons/37_SOLAR.svg" scaleX="8%" scaleY="8%" scaleRelativeTo ="screen" packingFormat="png" automaticPalette="false" compress="true" dithering="none"/>
 </drawables>

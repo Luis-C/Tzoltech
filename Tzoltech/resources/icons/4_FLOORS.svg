@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="7.68" height="7.68" viewBox="0.00 0.00 64.00 64.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g stroke-linecap="round" id="4_FLOORS">
+<path d="M6.40,35.20 L27.20,14.40" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M27.20,14.40 L27.20,20.80" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M27.20,14.40 L20.80,14.40" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M13.00,52.80 L17.80,52.80 L17.80,59.20 L6.60,59.20 L6.60,46.40 L32.20,46.40" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+<path d="M27.40,40.00 L32.20,40.00 L32.20,46.40 L21.00,46.40 L21.00,33.60 L46.60,33.60" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+<path d="M42.40,27.00 L46.40,27.20 L46.40,33.60 L35.20,33.60 L35.20,20.80 L59.20,20.80" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+<path d="M54.40,13.00 L59.20,13.00 L59.20,20.80 L48.00,20.80 L48.00,6.40 L62.40,6.40" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+</g>
+</svg>

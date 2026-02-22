@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="7.68" height="7.68" viewBox="0.00 0.00 64.00 64.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g stroke-linecap="round" id="5_INTENSITY">
+<path d="M24.00,25.60 L27.19,22.41 L25.60,20.80 L28.80,17.60 L30.44,19.16 L33.60,16.00 L36.83,16.00 L36.80,14.40 L43.20,14.40 L43.13,16.00 L46.40,16.00 L49.60,19.20 L51.20,17.60 L54.40,20.80 L52.80,22.40 L56.00,25.60 L56.00,28.80 L57.60,28.80 L57.60,38.40 L56.00,38.39 L56.00,41.60 L52.80,44.80 L54.40,46.40 L51.20,49.60 L49.60,48.00 L46.40,51.20 L43.20,51.20 L43.20,52.80 L36.80,52.80 L36.80,51.20 L33.60,51.20 L30.50,48.10 L28.80,49.60 L25.60,46.40 L27.22,44.82 L24.00,41.60 L24.00,38.37 L22.40,38.40 L22.40,28.80 L24.00,28.84 L24.00,25.60 Z" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+<path d="M27.77,30.40 L36.80,30.40" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M43.20,30.40 L52.80,30.40" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M33.60,41.60 L46.40,41.60" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M36.80,41.60 L36.80,46.40 L43.20,46.40 L43.20,41.60" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+<path d="M30.40,30.40 L30.40,33.60 L33.60,33.60 L33.60,30.40" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+<path d="M46.40,30.40 L46.40,33.60 L49.60,33.60 L49.60,30.40" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+<path d="M28.80,9.60 L51.20,9.60 L51.20,12.80 L28.80,12.80 L28.80,9.60 Z" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+<path d="M33.60,20.80 L46.40,20.80 L46.40,22.40 L33.60,22.40 L33.60,20.80 Z" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+<path d="M32.00,25.60 L48.00,25.60" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M40.00,25.60 L40.00,36.80" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M11.20,32.00 L19.20,32.00" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M6.40,38.40 L19.20,38.40" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M2.03,44.80 L19.20,44.80" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="round"/>
+<path d="M40.00,43.20 L40.00,41.60" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="round"/>
+</g>
+</svg>

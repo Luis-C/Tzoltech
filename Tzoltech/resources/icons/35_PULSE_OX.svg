@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="7.68" height="7.68" viewBox="0.00 0.00 64.00 64.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g stroke-linecap="round" id="PULSE_OX">
-<path d="M52.33,23.62 C53.01,25.17 53.94,29.06 54.12,30.98 C54.28,33.05 53.93,36.41 53.35,38.40 C52.12,42.41 48.05,48.04 44.63,50.46 C42.92,51.63 39.83,53.01 37.81,53.51 C33.73,54.44 26.82,53.73 23.01,51.98 C21.14,51.09 18.40,49.11 16.96,47.61 C14.11,44.54 11.27,38.20 10.88,34.03 C10.73,31.95 11.07,28.59 11.65,26.60 C12.88,22.60 16.96,16.97 20.37,14.54 C22.09,13.37 25.17,11.99 27.19,11.49 C31.27,10.56 38.18,11.27 41.99,13.02 C43.86,13.92 46.60,15.90 48.04,17.39 C49.35,18.80 51.63,22.09 52.33,23.62 Z" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.18" stroke-opacity="1.00" stroke-linejoin="round"/>
-<path d="M11.00,28.00 L19.00,28.00 L25.00,20.00 L39.00,46.00 L44.00,37.00 L53.00,37.00" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
-<path d="M24.00,44.00 L41.00,20.00" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="round"/>
+<g stroke-linecap="round" id="35_PULSE_OX">
+<path d="M9.60,9.60 L52.80,9.60 L52.80,52.80 L9.60,52.80 L9.60,9.60 Z" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+<path d="M9.60,28.80 L19.20,28.80 L25.60,20.80 L38.40,44.80 L43.20,36.80 L52.80,36.80" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="miter"/>
+<path d="M24.00,43.20 L40.00,20.80" fill="none" stroke="rgb(255, 255, 255)" stroke-width="3.00" stroke-opacity="1.00" stroke-linejoin="round"/>
 </g>
 </svg>
